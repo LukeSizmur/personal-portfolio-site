@@ -121,7 +121,7 @@ export function HomeNav() {
       duration: 0.52,
       ease: "power3.inOut",
       delay: 0.1,
-      onComplete: () => gsap.set(overlay, { display: "none" }),
+      onComplete: () => { gsap.set(overlay, { display: "none" }) },
     })
   }, [])
 
