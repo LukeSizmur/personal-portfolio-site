@@ -286,10 +286,14 @@ export default function Home() {
           <div className="reveal reveal-delay-2 col-span-2 rounded-[20px] bg-smoke border border-smoke p-0.5 card-hover-light max-md:col-span-1">
             <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full">
               <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
-                Formula 1
+                Football
               </div>
-              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">Race weekends are sacred.</div>
-              <div className="text-[14px] leading-[1.7] text-muted">F1 sits at the intersection of engineering precision, split-second design decisions, and high-stakes performance — pretty much everything I care about in one sport. I follow every session and have far too many opinions on tyre strategy.</div>
+              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">COYH</div>
+              <div className="text-[14px] leading-[1.7] text-muted">Football was something I never watched, played or gave any interest in when growing up.
+                It wasn&apod;t until my little bro go tinto it that I gave it my full attention.
+                Then from there it was every weekend, going to the matches, getting the team jersey and sitting through the highs
+                and lows of it all.
+              </div>
             </div>
           </div>
         </div>
