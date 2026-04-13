@@ -1,6 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { gsap } from "gsap"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+
+gsap.registerPlugin(ScrollToPlugin)
 
 const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const
 
@@ -32,13 +36,23 @@ export function HomeNav() {
     return () => observer.disconnect()
   }, [])
 
+  function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, section: string) {
+    e.preventDefault()
+    setActiveSection(section)
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: { y: `#${section}`, offsetY: 0 },
+      ease: "power3.inOut",
+    })
+  }
+
   return (
     <nav className="fixed top-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-0.5 whitespace-nowrap rounded-full border border-[rgba(43,43,43,0.08)] bg-[rgba(253,251,247,0.85)] px-2 py-1.5 backdrop-blur-xl">
       {NAV_LINKS.map((section) => (
         <a
           key={section}
           href={`#${section}`}
-          onClick={() => setActiveSection(section)}
+          onClick={(e) => handleNavClick(e, section)}
           className={`rounded-full px-4 py-[7px] text-[13px] font-medium tracking-[-0.01em] no-underline transition-all duration-[400ms] ${
             activeSection === section
               ? "bg-[#2b2b2b] text-[#fdfbf7]"

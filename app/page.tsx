@@ -1,35 +1,44 @@
 import { FooterShader } from "@/components/footer-shader"
 import { HomeNav } from "@/components/home-nav"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import AnimatedProjectStack, {
-  type CardItem,
-} from "@/components/ui/animate-card-animation"
+import StackIcon from 'tech-stack-icons';
+import AnimatedProjectStack, { CardItem } from "@/components/ui/animate-card-animation"
+import TechStack from "@/components/TechStack";
+import { MonitorSmartphone, LayoutTemplate, LineChart } from "lucide-react";
+import { FooterCard } from "@/components/footer-card";
 
 const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
+
 const PROJECTS: CardItem[] = [
   {
     id: 1,
-    title: "SOCA Dashboard",
-    description: "Cybersecurity SaaS platform",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-    badge: "Founder",
+    title: "Analytics Dashboard",
+    description: "Real-time data visualisation platform built with React & Highcharts",
+    image: "/project-dashboard.svg",
+    badge: "React",
   },
   {
     id: 2,
-    title: "Selfie Roamer",
-    description: "Web and automation workflows",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    title: "Design System",
+    description: "Multi-theme component library with CSS custom properties & dark mode",
+    image: "/project-design-system.svg",
+    badge: "Design",
   },
   {
     id: 3,
-    title: "Security Dashboards",
-    description: "Enterprise visualisation platform",
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+    title: "Security Console",
+    description: "Elasticsearch-powered SIEM event log viewer with live alerting",
+    image: "/project-security.svg",
+    badge: "Fullstack",
   },
-]
+  {
+    id: 4,
+    title: "Portfolio Site",
+    description: "This site — hand-crafted in Next.js with custom scroll animations",
+    image: "/project-portfolio.svg",
+    badge: "Next.js",
+  },
+];
 
 export default function Home() {
   return (
@@ -44,13 +53,18 @@ export default function Home() {
       >
 
         <h1 className="animate-hero-title text-[clamp(72px,11vw,160px)] font-bold leading-[0.9] tracking-[-0.04em] text-black">
-          Frontend<br />Developer.<span className="text-apex">_</span>
+          Full-Stack<br />Engineer.<span className="text-apex animate-cursor">|</span>
         </h1>
 
         <div className="animate-hero-sub flex items-end justify-between mt-12 gap-10 max-md:flex-col max-md:items-start">
-          <p className="text-[18px] font-normal text-muted max-w-[420px] leading-[1.6] tracking-[-0.01em]">
-            <strong className="text-black font-semibold">Luke Sizmur.</strong> - Thats me! I am a developer with a degree in software engineering and a keen eye for detail.
+          <div
+          ><p className="text-[18px] font-normal text-muted max-w-[420px] leading-[1.6] tracking-[-0.01em]">
+            <strong className="text-black font-semibold">Luke Sizmur.</strong> - That&apos;s me! I am a developer with a degree in software engineering and a keen eye for detail.
           </p>
+            <div style={{marginTop: '10px'}}>
+              <TechStack />
+            </div>
+          </div>
           <a
             href="#contact"
             className="hero-cta inline-flex items-center gap-3 bg-black text-cream no-underline text-[14px] font-semibold tracking-[-0.01em] pl-6 pr-[14px] py-[14px] rounded-full transition-all duration-500 flex-shrink-0 hover:bg-apex hover:scale-[1.02]"
@@ -75,7 +89,7 @@ export default function Home() {
       >
         <div className="about-left relative reveal">
           <div className="absolute text-[140px] font-bold tracking-[-0.05em] leading-none text-smoke top-[-20px] left-[-10px] pointer-events-none z-0 select-none">
-            02
+            01
           </div>
           <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted mb-6 relative z-10">
             About me
@@ -109,11 +123,11 @@ export default function Home() {
       </section>
 
       {/* Work */}
-      <section id="work" className="bg-black py-[120px] px-[60px] max-md:py-[80px] max-md:px-6">
-        <div className="flex items-end justify-between mb-16 max-md:flex-col max-md:items-start max-md:gap-5">
+      <section id="work" className="bg-black">
+        <div className="flex items-end justify-between pt-[120px] pb-16 px-[60px] max-md:flex-col max-md:items-start max-md:gap-5 max-md:pt-[80px] max-md:pb-10 max-md:px-6">
           <div className="relative">
           <div className="pointer-events-none absolute top-[-20px] left-[-10px] z-0 select-none text-[140px] leading-none font-bold tracking-[-0.05em] text-white/[0.06]">
-            03
+            02
           </div>
           <p className="relative z-10 mb-6 text-[10px] font-semibold tracking-[0.18em] uppercase text-muted">
             Selected work
@@ -133,14 +147,15 @@ export default function Home() {
           </a>
         </div>
 
-        <AnimatedProjectStack className="mt-20" items={PROJECTS} />
+        <AnimatedProjectStack items={PROJECTS} />
+
       </section>
 
       {/* Skills */}
       <section id="skills" className="relative py-[120px] px-[60px] max-md:py-[80px] max-md:px-6">
         <div className="relative">
           <div className="pointer-events-none absolute top-[-20px] left-[-10px] z-0 select-none text-[140px] leading-none font-bold tracking-[-0.05em] text-smoke">
-            04
+            03
           </div>
           <p className="relative z-10 mb-6 text-[10px] font-semibold tracking-[0.18em] uppercase text-muted">
             Capabilities
@@ -153,47 +168,40 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mt-16 max-md:grid-cols-1">
+        <div className="reveal reveal-delay-2 grid grid-cols-1 md:grid-cols-3 border-t border-b border-[#d4d0cb] mt-14">
           {[
             {
-              icon: '⚡',
+              icon: <MonitorSmartphone size={30} strokeWidth={1.25} />,
               name: 'Frontend Engineering',
               desc: 'Production-grade React applications with a focus on performance, component architecture, and maintainability.',
               stack: ['React', 'TypeScript', 'SCSS', 'Bootstrap', 'Highcharts'],
-              delay: '',
             },
             {
-              icon: '🎨',
+              icon: <LayoutTemplate size={30} strokeWidth={1.25} />,
               name: 'Design Systems',
               desc: 'Multi-theme CSS architecture, design tokens, and component libraries that scale across entire products.',
               stack: ['CSS Custom Props', 'SCSS', 'Dark/Light themes', 'Figma'],
-              delay: 'reveal-delay-1',
             },
             {
-              icon: '🔍',
+              icon: <LineChart size={30} strokeWidth={1.25} />,
               name: 'Data Visualisation',
               desc: 'Complex charting, real-time dashboards, and Elasticsearch integrations for security and analytics products.',
               stack: ['Highcharts', 'Elasticsearch', 'Lucene', 'D3'],
-              delay: 'reveal-delay-2',
             },
-          ].map(({ icon, name, desc, stack, delay }) => (
+          ].map(({ icon, name, desc, stack }, i, arr) => (
             <div
               key={name}
-              className={`reveal ${delay} rounded-[20px] bg-oatmeal border border-smoke p-0.5 card-hover-light`}
+              className={`flex flex-col p-10 max-md:px-0 max-md:py-8
+                ${i < arr.length - 1 ? 'border-b border-[#d4d0cb] md:border-b-0 md:border-r md:border-[#d4d0cb]' : ''}
+              `}
             >
-              <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-8">
-                <div className="w-11 h-11 rounded-xl bg-[rgba(232,62,11,0.08)] border border-[rgba(232,62,11,0.12)] flex items-center justify-center text-[20px] mb-5">
-                  {icon}
-                </div>
-                <div className="text-[20px] font-bold tracking-[-0.02em] text-black mb-2">{name}</div>
-                <div className="text-[14px] leading-[1.6] text-muted">{desc}</div>
-                <div className="flex flex-wrap gap-1.5 mt-5">
-                  {stack.map((pill) => (
-                    <span key={pill} className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[rgba(43,43,43,0.06)] text-[#5a5650] tracking-[0.02em]">
-                      {pill}
-                    </span>
-                  ))}
-                </div>
+              <div className="mb-6 text-black">{icon}</div>
+              <div className="text-[19px] font-bold tracking-[-0.025em] text-black mb-3">{name}</div>
+              <div className="text-[14px] leading-[1.65] text-muted">{desc}</div>
+              <div className="flex flex-wrap gap-[6px] mt-auto pt-8">
+                {stack.map((tag) => (
+                  <span key={tag} className="capability-tag">{tag}</span>
+                ))}
               </div>
             </div>
           ))}
@@ -204,7 +212,7 @@ export default function Home() {
       <section id="personal" className="bg-oatmeal py-[120px] px-[60px] max-md:py-[80px] max-md:px-6">
         <div className="relative mb-0">
           <div className="pointer-events-none absolute top-[-20px] left-[-10px] z-0 select-none text-[140px] leading-none font-bold tracking-[-0.05em] text-smoke">
-            05
+            04
           </div>
           <p className="relative z-10 mb-6 text-[10px] font-semibold tracking-[0.18em] uppercase text-muted">
             Beyond the code
@@ -227,7 +235,7 @@ export default function Home() {
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">A proper cinephile.</div>
               <div className="text-[14px] leading-[1.7] text-muted">I track every film I watch. I love getting lost in other worlds, but also in the behind the scenes of those worlds, how they are made, how and <span className='text-apex'>why</span> every decision </div>
               <div className="flex flex-wrap gap-2 mt-5">
-                {['Blade Runner 2049', 'There Will Be Blood', 'The Lighthouse', 'Drive', 'No Country for Old Men', 'Annihilation', 'Heat', 'The Social Network'].map((film) => (
+                {['BlackBerry 2023', 'Interstellar', 'Project Hail Mary', 'Spider-Man: Across The Spider-Verse', 'Spider-Man: Into The Spider-Verse', 'Star Wars: Episode III - Revenge of the Sith'].map((film) => (
                   <span
                     key={film}
                     className="inline-flex items-center text-[12px] font-semibold px-3 py-1.5 rounded-full bg-[rgba(43,43,43,0.06)] border border-[rgba(43,43,43,0.08)] text-[#5a5650] transition-all duration-[400ms] hover:bg-[rgba(232,62,11,0.08)] hover:border-[rgba(232,62,11,0.15)] hover:text-apex cursor-default"
@@ -338,35 +346,7 @@ export default function Home() {
 
         {/* Footer — oatmeal card over the shader */}
         <footer className="relative z-10 p-6 max-md:p-3">
-          <div className="bg-oatmeal rounded-[28px] px-[60px] pt-14 pb-12 overflow-hidden relative max-md:px-6 max-md:pt-10 max-md:pb-8 max-md:rounded-[20px]">
-            <div className="flex justify-between items-start mb-[60px] relative z-10 max-md:flex-col max-md:gap-6">
-              <div>
-                <div className="text-[18px] font-bold tracking-[-0.02em] text-black">
-                  Luke<span className="text-apex">.</span>
-                </div>
-                <div className="text-[13px] text-muted mt-1">Developer — England</div>
-              </div>
-              <div className="flex gap-6 items-center">
-                {NAV_LINKS.map((s) => (
-                  <a key={s} href={`#${s}`} className="no-underline text-[13px] font-medium text-muted transition-colors duration-300 hover:text-black">
-                    {s.charAt(0).toUpperCase() + s.slice(1)}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="text-[clamp(80px,18vw,260px)] font-bold tracking-[-0.05em] leading-[0.85] text-black/[0.07] select-none pointer-events-none whitespace-nowrap relative z-0 max-md:text-[clamp(60px,20vw,140px)]">
-              Luke Sizmur
-            </div>
-
-            <div className="flex justify-between items-center pt-7 border-t border-[rgba(43,43,43,0.1)] relative z-10">
-              <span className="text-[12px] text-muted">© 2026 Luke Sizmur. All rights reserved.</span>
-              <div className="flex items-center gap-1.5 text-[12px] text-muted">
-                <span className="status-dot w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block"></span>
-                Open to opportunities
-              </div>
-            </div>
-          </div>
+          <FooterCard />
         </footer>
       </div>
     </>

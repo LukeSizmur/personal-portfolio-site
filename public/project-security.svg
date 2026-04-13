@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="220" viewBox="0 0 820 220">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#080e10"/>
+      <stop offset="100%" style="stop-color:#0c1418"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="220" fill="url(#bg3)"/>
+  <!-- Horizontal timeline/log rows -->
+  <rect x="40" y="28" width="740" height="22" rx="4" fill="#ffffff" fill-opacity="0.03"/>
+  <rect x="40" y="58" width="740" height="22" rx="4" fill="#e83e0b" fill-opacity="0.06"/>
+  <rect x="40" y="88" width="740" height="22" rx="4" fill="#ffffff" fill-opacity="0.03"/>
+  <rect x="40" y="118" width="740" height="22" rx="4" fill="#ffffff" fill-opacity="0.03"/>
+  <rect x="40" y="148" width="740" height="22" rx="4" fill="#e83e0b" fill-opacity="0.04"/>
+  <rect x="40" y="178" width="740" height="22" rx="4" fill="#ffffff" fill-opacity="0.03"/>
+  <!-- Severity badges -->
+  <rect x="50" y="33" width="44" height="12" rx="6" fill="#e83e0b" fill-opacity="0.8"/>
+  <rect x="50" y="63" width="52" height="12" rx="6" fill="#f5a623" fill-opacity="0.8"/>
+  <rect x="50" y="93" width="36" height="12" rx="6" fill="#22c55e" fill-opacity="0.7"/>
+  <rect x="50" y="123" width="36" height="12" rx="6" fill="#22c55e" fill-opacity="0.7"/>
+  <rect x="50" y="153" width="44" height="12" rx="6" fill="#e83e0b" fill-opacity="0.8"/>
+  <rect x="50" y="183" width="52" height="12" rx="6" fill="#f5a623" fill-opacity="0.8"/>
+  <!-- Text stub lines -->
+  <rect x="110" y="34" width="200" height="10" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+  <rect x="110" y="64" width="240" height="10" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+  <rect x="110" y="94" width="160" height="10" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+  <rect x="110" y="124" width="200" height="10" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+  <rect x="110" y="154" width="220" height="10" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+  <rect x="110" y="184" width="180" height="10" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+  <!-- Timestamp stubs -->
+  <rect x="680" y="34" width="80" height="8" rx="2" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="680" y="64" width="80" height="8" rx="2" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="680" y="94" width="80" height="8" rx="2" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="680" y="124" width="80" height="8" rx="2" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="680" y="154" width="80" height="8" rx="2" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="680" y="184" width="80" height="8" rx="2" fill="#ffffff" fill-opacity="0.06"/>
+  <!-- Pulse dot -->
+  <circle cx="762" cy="64" r="5" fill="#e83e0b" fill-opacity="0.9"/>
+  <circle cx="762" cy="64" r="9" fill="#e83e0b" fill-opacity="0.2"/>
+</svg>

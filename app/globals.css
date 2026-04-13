@@ -22,7 +22,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: hidden;
 }
 
@@ -77,6 +76,10 @@ body::before {
   border-radius: 50%;
   background: var(--apex);
   flex-shrink: 0;
+}
+
+.hero-tech-icon {
+    font-size: 1rem;
 }
 
 /* Gradient backgrounds for project cards */
@@ -203,4 +206,32 @@ body::before {
 
 .status-dot {
   animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* ── 04 Capabilities — tag pills ── */
+.capability-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.75rem;
+  background-color: rgba(43, 43, 43, 0.06);
+  color: var(--muted);
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: crosshair;
+}
+
+.capability-tag:hover {
+  background-color: var(--apex);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor {
+  animation: terminal-blink 1s step-end infinite;
 }

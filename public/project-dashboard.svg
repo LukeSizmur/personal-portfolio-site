@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="220" viewBox="0 0 820 220">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f0d"/>
+      <stop offset="100%" style="stop-color:#1a1a16"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e83e0b;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:0.4"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="220" fill="url(#bg)"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="44" x2="820" y2="44" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="0" y1="88" x2="820" y2="88" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="0" y1="132" x2="820" y2="132" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="0" y1="176" x2="820" y2="176" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="164" y1="0" x2="164" y2="220" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="328" y1="0" x2="328" y2="220" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="492" y1="0" x2="492" y2="220" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <line x1="656" y1="0" x2="656" y2="220" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+  <!-- Chart bars -->
+  <rect x="40" y="140" width="28" height="56" rx="3" fill="#e83e0b" fill-opacity="0.7"/>
+  <rect x="80" y="100" width="28" height="96" rx="3" fill="#e83e0b" fill-opacity="0.5"/>
+  <rect x="120" y="120" width="28" height="76" rx="3" fill="#e83e0b" fill-opacity="0.6"/>
+  <rect x="160" y="80" width="28" height="116" rx="3" fill="#e83e0b" fill-opacity="0.8"/>
+  <rect x="200" y="110" width="28" height="86" rx="3" fill="#e83e0b" fill-opacity="0.5"/>
+  <rect x="240" y="90" width="28" height="106" rx="3" fill="#e83e0b" fill-opacity="0.65"/>
+  <rect x="280" y="60" width="28" height="136" rx="3" fill="#e83e0b" fill-opacity="0.9"/>
+  <!-- Sparkline -->
+  <polyline points="360,160 400,130 440,145 480,110 520,90 560,115 600,80 640,95 680,70 720,85 760,60" fill="none" stroke="#e83e0b" stroke-width="2" stroke-opacity="0.7"/>
+  <circle cx="760" cy="60" r="4" fill="#e83e0b"/>
+  <!-- KPI boxes -->
+  <rect x="360" y="20" width="120" height="48" rx="6" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <rect x="500" y="20" width="120" height="48" rx="6" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <rect x="640" y="20" width="120" height="48" rx="6" fill="#e83e0b" fill-opacity="0.12" stroke="#e83e0b" stroke-opacity="0.2" stroke-width="1"/>
+  <rect x="40" y="20" width="280" height="14" rx="3" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="40" y="40" width="180" height="8" rx="2" fill="#ffffff" fill-opacity="0.04"/>
+</svg>

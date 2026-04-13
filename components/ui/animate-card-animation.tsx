@@ -2,12 +2,15 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { flushSync } from "react-dom"
-import { useState } from "react"
+import { useRef, useState, useEffect } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { AnimatePresence, motion } from "framer-motion"
 import { ChevronRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export interface CardItem {
   id: number
@@ -20,100 +23,38 @@ export interface CardItem {
 interface AnimatedCardStackProps {
   items?: CardItem[]
   className?: string
+  header?: React.ReactNode
 }
 
-interface Card {
-  id: number
-  contentType: number
-}
-
-const defaultCardData: Record<number, CardItem> = {
-  1: {
-    id: 1,
-    title: "SOCA Dashboard",
-    description: "Cybersecurity SaaS platform",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-    badge: "Founder",
-  },
-  2: {
-    id: 2,
-    title: "Selfie Roamer",
-    description: "Web and automation workflows",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-  },
-  3: {
-    id: 3,
-    title: "Security Dashboards",
-    description: "Enterprise visualisation platform",
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-  },
-}
-
-const positionStyles = [
-  { scale: 1, y: 12 },
-  { scale: 0.955, y: -18 },
-  { scale: 0.91, y: -46 },
+// Visual stack — index 0 is the front (topmost) card
+const STACK_POSITIONS = [
+  { scale: 1,     y: 0   },
+  { scale: 0.955, y: -22 },
+  { scale: 0.91,  y: -44 },
 ]
 
-// zIndex is intentionally omitted — it is controlled via the React style prop
-// so the exiting card keeps its boosted z-index for the entire flight path.
-const exitAnimation = {
-  y: 340,
-  scale: 1,
-}
-
-const enterAnimation = {
-  y: -18,
-  scale: 0.91,
-}
-
-function buildCardMap(items: CardItem[]) {
-  return items.reduce<Record<number, CardItem>>((acc, item, index) => {
-    acc[index + 1] = item
-    return acc
-  }, {})
-}
-
-function buildInitialCards(items: CardItem[]): Card[] {
-  return items.slice(0, 3).map((_, index) => ({
-    id: index + 1,
-    contentType: index + 1,
-  }))
-}
-
-function CardContent({
-  contentType,
-  cardData,
-}: {
-  contentType: number
-  cardData: Record<number, CardItem>
-}) {
-  const data = cardData[contentType]
-
+function CardContent({ item }: { item: CardItem }) {
   return (
-    <div className="flex h-full w-full flex-col gap-4 rounded-[22px] bg-[#141412] p-3 text-oatmeal">
-      <div className="relative flex h-[220px] w-full items-center justify-center overflow-hidden rounded-[18px] outline outline-1 outline-white/8">
+    <div className="flex h-full w-full flex-col gap-4 rounded-[28px] bg-[#141412] p-3 text-oatmeal">
+      <div className="relative flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[24px] outline outline-1 outline-white/8">
         <img
-          src={data.image}
-          alt={data.title}
+          src={item.image}
+          alt={item.title}
           className="h-full w-full select-none object-cover"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,0.03)_0%,rgba(20,20,18,0.18)_100%)]" />
-        {data.badge ? (
+        {item.badge ? (
           <span className="absolute left-4 top-4 rounded-full border border-[rgba(232,62,11,0.16)] bg-[rgba(232,62,11,0.14)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-apex">
-            {data.badge}
+            {item.badge}
           </span>
         ) : null}
       </div>
       <div className="flex w-full items-center justify-between gap-4 px-3 pb-4">
         <div className="flex min-w-0 flex-1 flex-col">
           <span className="truncate text-[20px] font-bold tracking-[-0.03em] text-oatmeal">
-            {data.title}
+            {item.title}
           </span>
-          <span className="text-[14px] text-oatmeal/58">{data.description}</span>
+          <span className="text-[14px] text-oatmeal/58">{item.description}</span>
         </div>
         <button className="flex h-11 shrink-0 cursor-pointer select-none items-center gap-1 rounded-full bg-oatmeal pl-5 pr-4 text-sm font-semibold text-black transition-colors hover:bg-apex hover:text-cream">
           Read
@@ -124,119 +65,118 @@ function CardContent({
   )
 }
 
-function AnimatedCard({
-  card,
-  index,
-  isExiting,
-  cardData,
-}: {
-  card: Card
-  index: number
-  /** True for the one render cycle before this card leaves the array,
-   *  giving it a boosted z-index so it flies out above the new front card. */
-  isExiting: boolean
-  cardData: Record<number, CardItem>
-}) {
-  const { scale, y } = positionStyles[index] ?? positionStyles[2]
-
-  // Exiting card must sit above everything (50).
-  // New front card (index 0) gets 20 — above the rest but below the exiting card.
-  // Remaining cards get their natural stacking order.
-  const zIndex = isExiting ? 50 : index === 0 ? 20 : 3 - index
-
-  const exitAnim = index === 0 ? exitAnimation : undefined
-  const initialAnim = index === 2 ? enterAnimation : undefined
-
-  return (
-    <motion.div
-      key={card.id}
-      initial={initialAnim}
-      animate={{ y, scale }}
-      exit={exitAnim}
-      transition={{
-        type: "spring",
-        duration: 1,
-        bounce: 0,
-      }}
-      style={{
-        zIndex,
-        left: "50%",
-        x: "-50%",
-        bottom: 0,
-      }}
-      className="absolute flex h-[338px] w-[min(100%,820px)] items-center justify-center overflow-hidden rounded-[26px] border border-white/[0.08] bg-[rgba(18,18,16,0.96)] p-1 shadow-[0_28px_90px_rgba(0,0,0,0.35)] will-change-transform"
-    >
-      <CardContent contentType={card.contentType} cardData={cardData} />
-    </motion.div>
-  )
-}
-
-export default function AnimatedCardStack({
-  items = Object.values(defaultCardData),
+export default function AnimatedProjectStack({
+  items = [],
   className,
+  header,
 }: AnimatedCardStackProps) {
-  const normalizedItems = items.length >= 3 ? items : Object.values(defaultCardData)
-  const cardData = buildCardMap(normalizedItems)
-  const [cards, setCards] = useState<Card[]>(buildInitialCards(normalizedItems))
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [nextId, setNextId] = useState(normalizedItems.length + 1)
-  // Tracks the id of the card that is about to exit so we can boost its z-index
-  // one synchronous render cycle before it is removed from the cards array.
-  const [exitingCardId, setExitingCardId] = useState<number | null>(null)
+  const sectionRef  = useRef<HTMLDivElement>(null)
+  const [revealedCount, setRevealedCount] = useState(0)
+  const revealedRef = useRef(0)
 
-  const handleAnimate = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || items.length === 0) return
 
-    const topCardId = cards[0].id
-    const nextContentType = (cards[cards.length - 1].contentType % normalizedItems.length) + 1
+    // gsap.context scopes all ScrollTriggers to this element — ctx.revert()
+    // cleanly kills them all on unmount / dependency change.
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top top",
+        // Give each card its own viewport-height of scroll room
+        end: `+=${items.length * window.innerHeight}`,
+        // Pin the section in place while scroll progress advances
+        pin: true,
+        pinSpacing: true,
+        // Snap to each card's position — evenly spaced across the range
+        snap: {
+          snapTo: 1 / items.length,
+          duration: { min: 0.3, max: 0.55 },
+          delay: 0.05,
+          ease: "power2.inOut",
+        },
+        onUpdate: (self) => {
+          const count = Math.round(self.progress * items.length)
+          const clamped = Math.min(Math.max(count, 0), items.length)
+          if (clamped !== revealedRef.current) {
+            revealedRef.current = clamped
+            setRevealedCount(clamped)
+          }
+        },
+      })
+    }, el)
 
-    // Force a synchronous render that gives the current top card a high z-index
-    // BEFORE we remove it from the cards array. AnimatePresence will then keep
-    // that frozen z-index (50) for the entire exit animation, ensuring the card
-    // flies out in front of the newly promoted front card (z-index 20).
-    flushSync(() => {
-      setExitingCardId(topCardId)
-    })
-
-    // Now swap cards — the exiting card is already painted at z-index 50.
-    setCards((current) => [
-      ...current.slice(1),
-      { id: nextId, contentType: nextContentType },
-    ])
-    setExitingCardId(null)
-    setNextId((prev) => prev + 1)
-
-    window.setTimeout(() => {
-      setIsAnimating(false)
-    }, 220)
-  }
+    return () => ctx.revert()
+  }, [items.length])
 
   return (
-    <div className={cn("flex w-full flex-col items-center justify-center pt-2", className)}>
-      <div className="relative h-[460px] w-full overflow-hidden">
-        <AnimatePresence initial={false}>
-          {cards.slice(0, 3).map((card, index) => (
-            <AnimatedCard
-              key={card.id}
-              card={card}
-              index={index}
-              isExiting={card.id === exitingCardId}
-              cardData={cardData}
+    <div
+      ref={sectionRef}
+      className={cn(
+        "relative flex min-h-screen flex-col bg-black",
+        className,
+      )}
+    >
+      {/* Section header — stays in view while cards are pinned */}
+      {header && (
+        <div className="relative shrink-0 px-[60px] pt-[72px] pb-8 max-md:px-6 max-md:pt-10">
+          {header}
+        </div>
+      )}
+
+      {/* Card stack — overflow-hidden scoped here so header ghost text isn't clipped */}
+      <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-4 pb-12">
+        <div className="relative h-[560px] w-[min(100%,calc(100vw-32px))]">
+          <AnimatePresence>
+            {items.slice(0, revealedCount).map((item, i) => {
+              const stackIndex = revealedCount - 1 - i
+              const pos    = STACK_POSITIONS[stackIndex] ?? STACK_POSITIONS[STACK_POSITIONS.length - 1]
+              const zIndex = items.length - stackIndex
+
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ y: 300, scale: 0.92, opacity: 0 }}
+                  animate={{ y: pos.y, scale: pos.scale, opacity: 1 }}
+                  exit={{ y: 300, scale: 0.92, opacity: 0 }}
+                  transition={{ type: "spring", bounce: 0, duration: 0.72 }}
+                  style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex }}
+                  className="flex h-[500px] items-center justify-center overflow-hidden rounded-[32px] border border-white/[0.08] bg-[rgba(18,18,16,0.96)] p-1.5 shadow-[0_32px_100px_rgba(0,0,0,0.45)] will-change-transform"
+                >
+                  <CardContent item={item} />
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </div>
+
+        {/* Progress dots */}
+        <div className="mt-8 flex items-center gap-2">
+          {items.map((item, i) => (
+            <div
+              key={item.id}
+              className={cn(
+                "rounded-full transition-all duration-500",
+                i < revealedCount
+                  ? "h-1.5 w-6 bg-oatmeal/60"
+                  : "h-1.5 w-1.5 bg-white/20",
+              )}
             />
           ))}
-        </AnimatePresence>
+        </div>
       </div>
 
-      <div className="relative z-10 -mt-px flex w-full items-center justify-center border-t border-white/8 py-5">
-        <button
-          onClick={handleAnimate}
-          className="flex h-11 cursor-pointer select-none items-center justify-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-5 text-[14px] font-semibold text-oatmeal transition-all hover:bg-white/[0.08] active:scale-[0.98]"
-        >
-          Next project
-          <ChevronRight className="size-4" strokeWidth={2.4} />
-        </button>
-      </div>
+      {/* Scroll hint — fades out after first card appears */}
+      <motion.div
+        animate={{ opacity: revealedCount > 0 ? 0 : 1 }}
+        transition={{ duration: 0.4 }}
+        className="absolute bottom-8 right-[60px] flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.15em] text-white/30 max-md:right-6"
+        aria-hidden
+      >
+        <span className="h-px w-8 bg-white/20" />
+        Scroll
+      </motion.div>
     </div>
   )
 }
