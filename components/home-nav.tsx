@@ -82,7 +82,7 @@ export function HomeNav() {
     if (!pill || !burger) return
     gsap.timeline()
       .to(pill, { opacity: 0, y: -6, duration: 0.22, ease: "power2.in",
-        onComplete: () => gsap.set(pill, { pointerEvents: "none" }) })
+        onComplete: () => { gsap.set(pill, { pointerEvents: "none" }) } })
       .to(burger, { opacity: 1, scale: 1, pointerEvents: "auto", duration: 0.28, ease: "back.out(1.7)" }, "-=0.05")
   }, [])
 
