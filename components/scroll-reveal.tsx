@@ -1,26 +1,50 @@
 "use client"
 
 import { useEffect } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
+
+const DELAY_MAP: Record<string, number> = {
+  "reveal-delay-3": 0.3,
+  "reveal-delay-2": 0.2,
+  "reveal-delay-1": 0.1,
+}
 
 export function ScrollReveal() {
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>(".reveal"))
-    if (elements.length === 0) return
+    let ctx: gsap.Context
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-            observer.unobserve(entry.target)
-          }
+    // Defer until after AnimatedProjectStack's useEffect has run and added
+    // its pin spacer — otherwise trigger positions for sections 03/04 are
+    // calculated against the wrong scroll offsets.
+    const timer = setTimeout(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
+          const delay =
+            Object.entries(DELAY_MAP).find(([cls]) => el.classList.contains(cls))?.[1] ?? 0
+
+          gsap.from(el, {
+            y: 32,
+            opacity: 0,
+            duration: 0.8,
+            delay,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
         })
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -8% 0px" },
-    )
+      })
+    }, 300)
 
-    elements.forEach((element) => observer.observe(element))
-    return () => observer.disconnect()
+    return () => {
+      clearTimeout(timer)
+      ctx?.revert()
+    }
   }, [])
 
   return null

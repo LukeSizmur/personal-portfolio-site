@@ -65,67 +65,90 @@ function CardContent({ item }: { item: CardItem }) {
   )
 }
 
+// Simple vertical list used on mobile — no pinning or scroll hijacking
+function MobileCardList({ items, className }: { items: CardItem[]; className?: string }) {
+  return (
+    <div className={cn("flex flex-col gap-4 px-4 pb-12", className)}>
+      {items.map((item) => (
+        <div
+          key={item.id}
+          className="overflow-hidden rounded-[32px] border border-white/[0.08] bg-[rgba(18,18,16,0.96)] p-1.5 shadow-[0_32px_100px_rgba(0,0,0,0.45)]"
+        >
+          <CardContent item={item} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function AnimatedProjectStack({
   items = [],
   className,
   header,
 }: AnimatedCardStackProps) {
   const sectionRef  = useRef<HTMLDivElement>(null)
-  const [revealedCount, setRevealedCount] = useState(0)
-  const revealedRef = useRef(0)
+  const [isMobile, setIsMobile]           = useState<boolean | null>(null)
+  const [revealedCount, setRevealedCount] = useState(1)
+  const revealedRef = useRef(1)
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  // Desktop-only: pinned scroll animation
+  useEffect(() => {
+    if (isMobile === null || isMobile) return
     const el = sectionRef.current
     if (!el || items.length === 0) return
 
-    // gsap.context scopes all ScrollTriggers to this element — ctx.revert()
-    // cleanly kills them all on unmount / dependency change.
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: el,
         start: "top top",
-        // Give each card its own viewport-height of scroll room
-        end: `+=${items.length * window.innerHeight}`,
-        // Pin the section in place while scroll progress advances
+        end: `+=${items.length * 100}%`,
         pin: true,
-        pinSpacing: true,
-        // Snap to each card's position — evenly spaced across the range
-        snap: {
-          snapTo: 1 / items.length,
-          duration: { min: 0.3, max: 0.55 },
-          delay: 0.05,
-          ease: "power2.inOut",
-        },
+        scrub: 1,
         onUpdate: (self) => {
           const count = Math.round(self.progress * items.length)
-          const clamped = Math.min(Math.max(count, 0), items.length)
-          if (clamped !== revealedRef.current) {
-            revealedRef.current = clamped
-            setRevealedCount(clamped)
+          if (count !== revealedRef.current) {
+            revealedRef.current = count
+            setRevealedCount(count)
           }
         },
       })
     }, el)
 
     return () => ctx.revert()
-  }, [items.length])
+  }, [isMobile, items.length])
+
+  if (isMobile === null) return <div className="min-h-screen bg-black" />
+
+  if (isMobile) {
+    return (
+      <div className="bg-black pt-10">
+        {header && <div className="px-6 mb-8">{header}</div>}
+        <MobileCardList items={items} className={className} />
+      </div>
+    )
+  }
 
   return (
     <div
       ref={sectionRef}
       className={cn(
-        "relative flex min-h-screen flex-col bg-black",
+        "relative flex min-h-dvh flex-col bg-black",
         className,
       )}
     >
-      {/* Section header — stays in view while cards are pinned */}
       {header && (
         <div className="relative shrink-0 px-[60px] pt-[72px] pb-8 max-md:px-6 max-md:pt-10">
           {header}
         </div>
       )}
 
-      {/* Card stack — overflow-hidden scoped here so header ghost text isn't clipped */}
       <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-4 pb-12">
         <div className="relative h-[560px] w-[min(100%,calc(100vw-32px))]">
           <AnimatePresence>
@@ -151,7 +174,6 @@ export default function AnimatedProjectStack({
           </AnimatePresence>
         </div>
 
-        {/* Progress dots */}
         <div className="mt-8 flex items-center gap-2">
           {items.map((item, i) => (
             <div
@@ -167,9 +189,8 @@ export default function AnimatedProjectStack({
         </div>
       </div>
 
-      {/* Scroll hint — fades out after first card appears */}
       <motion.div
-        animate={{ opacity: revealedCount > 0 ? 0 : 1 }}
+        animate={{ opacity: revealedCount > 1 ? 0 : 1 }}
         transition={{ duration: 0.4 }}
         className="absolute bottom-8 right-[60px] flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.15em] text-white/30 max-md:right-6"
         aria-hidden

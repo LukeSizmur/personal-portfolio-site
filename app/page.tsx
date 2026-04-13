@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import StackIcon from 'tech-stack-icons';
 import AnimatedProjectStack, { CardItem } from "@/components/ui/animate-card-animation"
 import TechStack from "@/components/TechStack";
-import { MonitorSmartphone, LayoutTemplate, LineChart } from "lucide-react";
+import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight } from "lucide-react";
 import { FooterCard } from "@/components/footer-card";
 
 const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
@@ -70,8 +70,8 @@ export default function Home() {
             className="hero-cta inline-flex items-center gap-3 bg-black text-cream no-underline text-[14px] font-semibold tracking-[-0.01em] pl-6 pr-[14px] py-[14px] rounded-full transition-all duration-500 flex-shrink-0 hover:bg-apex hover:scale-[1.02]"
           >
             Get in touch
-            <span className="hero-cta-icon w-8 h-8 rounded-full bg-white/[0.12] flex items-center justify-center text-[14px] transition-transform duration-500">
-              ↗
+            <span className="hero-cta-icon w-8 h-8 rounded-full bg-white/[0.12] flex items-center justify-center transition-transform duration-500">
+              <ArrowUpRight size={14} />
             </span>
           </a>
         </div>
@@ -143,7 +143,7 @@ export default function Home() {
             href="#"
             className="reveal inline-flex items-center gap-2 no-underline text-[13px] font-semibold text-muted border border-white/10 px-5 py-2.5 rounded-full transition-all duration-[400ms] flex-shrink-0 mb-2 hover:bg-white/[0.06] hover:text-oatmeal"
           >
-            View all ↗
+            View all <ArrowUpRight size={14} />
           </a>
         </div>
 
@@ -319,8 +319,8 @@ export default function Home() {
               className="btn-primary inline-flex items-center gap-3 bg-oatmeal text-black no-underline text-[14px] font-semibold pl-6 pr-[14px] py-[14px] rounded-full transition-all duration-500 hover:bg-apex hover:text-cream hover:scale-[1.02]"
             >
               Send an email
-              <span className="btn-icon w-8 h-8 rounded-full bg-oatmeal/[0.08] flex items-center justify-center text-[13px] transition-transform duration-500">
-                →
+              <span className="btn-icon w-8 h-8 rounded-full bg-oatmeal/[0.08] flex items-center justify-center transition-transform duration-500">
+                <ArrowRight size={13} />
               </span>
             </a>
             <a
