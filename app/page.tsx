@@ -273,7 +273,7 @@ export default function Home() {
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">My current library</div>
               <div className="text-[14px] leading-[1.7] text-muted">I gravitate towards fiction as a way to explore new worlds and ideas. I particularly enjoy sci-fi.</div>
               <ul className="personal-list list-none mt-5 flex flex-col gap-2.5">
-                {['Project Hail Mary', 'Ultra 85', 'Steve Jobs', 'Blood Meridian'].map((book) => (
+                {['Project Hail Mary', 'Ultra 85', 'Steve Jobs', 'The Martian'].map((book) => (
                   <li key={book} className="flex items-center gap-3 text-[14px] text-[#5a5650] font-medium">
                     {book}
                   </li>
@@ -282,7 +282,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* F1 — wide */}
+          {/* Football — wide */}
           <div className="reveal reveal-delay-2 col-span-2 rounded-[20px] bg-smoke border border-smoke p-0.5 card-hover-light max-md:col-span-1">
             <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full">
               <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
