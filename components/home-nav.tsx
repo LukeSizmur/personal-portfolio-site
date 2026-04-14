@@ -60,16 +60,31 @@ export function HomeNav() {
       gsap.set(burger, { opacity: 1, scale: 1, pointerEvents: "auto" })
       isScrolled.current = true
     } else {
-      gsap.set(pill, { left: (window.innerWidth - naturalWidth.current) / 2 })
+      gsap.set(pill, { opacity: 1, left: (window.innerWidth - naturalWidth.current) / 2 })
       gsap.set(burger, { opacity: 0, scale: 0.75, pointerEvents: "none" })
     }
   }, [])
 
-  // Re-centre pill on resize
+  // Re-centre pill on resize + handle desktop↔mobile breakpoint crossing
   useEffect(() => {
     const onResize = () => {
-      if (!isScrolled.current && pillRef.current) {
-        gsap.set(pillRef.current, { left: (window.innerWidth - naturalWidth.current) / 2 })
+      const isMobile = window.innerWidth < 768
+      const pill = pillRef.current
+      const burger = burgerRef.current
+      if (!pill || !burger) return
+
+      if (!isMobile) {
+        // Crossed into desktop: always show pill, hide burger
+        gsap.set(pill, { display: "", opacity: 1, y: 0, pointerEvents: "auto", left: (window.innerWidth - naturalWidth.current) / 2 })
+        gsap.set(burger, { opacity: 0, scale: 0.75, pointerEvents: "none" })
+        isScrolled.current = false
+      } else {
+        // Crossed into mobile: hide pill, show burger
+        if (!isScrolled.current) {
+          gsap.set(pill, { display: "none", opacity: 0, pointerEvents: "none" })
+          gsap.set(burger, { opacity: 1, scale: 1, pointerEvents: "auto" })
+          isScrolled.current = true
+        }
       }
     }
     window.addEventListener("resize", onResize)
@@ -125,10 +140,11 @@ export function HomeNav() {
     })
   }, [])
 
-  // Scroll handler — one-way: pill → burger, never reverts
+  // Scroll handler — pill → burger on mobile only when scrolled past threshold
   useEffect(() => {
     const onScroll = () => {
-      if (!isScrolled.current && window.scrollY > SCROLL_THRESHOLD) {
+      const isMobile = window.innerWidth < 768
+      if (isMobile && !isScrolled.current && window.scrollY > SCROLL_THRESHOLD) {
         isScrolled.current = true
         showBurger()
       }
@@ -158,6 +174,7 @@ export function HomeNav() {
       {/* Pill nav — top of page */}
       <nav
         ref={pillRef}
+        style={{ opacity: 0 }}
         className="fixed top-6 z-50 flex items-center gap-0.5 whitespace-nowrap rounded-full border border-[rgba(43,43,43,0.08)] bg-[rgba(253,251,247,0.85)] px-2 py-1.5 backdrop-blur-xl"
       >
         {NAV_LINKS.map((section) => (

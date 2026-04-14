@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import StackIcon from 'tech-stack-icons';
 import AnimatedProjectStack, { CardItem } from "@/components/ui/animate-card-animation"
 import TechStack from "@/components/TechStack";
-import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight } from "lucide-react";
+import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
 import { FooterCard } from "@/components/footer-card";
 
 const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
@@ -76,9 +76,8 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="animate-hero-scroll absolute bottom-10 right-[60px] text-[11px] font-medium tracking-[0.15em] uppercase text-muted flex items-center gap-2.5 max-md:right-6">
-          <span className="scroll-line w-10 h-px bg-muted relative overflow-hidden"></span>
-          Scroll
+        <div className="animate-hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2">
+          <ChevronDown size={28} strokeWidth={1.5} className="text-apex arrow-jump" />
         </div>
       </section>
 
@@ -253,10 +252,10 @@ export default function Home() {
               <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
                 Interests
               </div>
-              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">What keeps me going.</div>
+              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">In my spare time</div>
               <div className="text-[14px] leading-[1.7] text-muted">Outside of my day to say work, I&apos;m usually keeping up with the latest tech trends, deep in a game, or running a small newsletter curating interesting corners of the internet.</div>
               <div className="flex gap-2.5 flex-wrap mt-5">
-                <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(232,62,11,0.08)] border border-[rgba(232,62,11,0.12)] text-apex">Formula 1</span>
+                <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(232,62,11,0.08)] border border-[rgba(232,62,11,0.12)] text-apex">Football</span>
                 <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(245,166,35,0.08)] border border-[rgba(245,166,35,0.15)] text-amber">Gaming</span>
                 <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(100,180,255,0.08)] border border-[rgba(100,180,255,0.15)] text-[rgba(60,140,220,0.9)]">Movies</span>
                 <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(43,43,43,0.06)] border border-[rgba(43,43,43,0.08)] text-muted">Newsletter</span>
@@ -290,7 +289,7 @@ export default function Home() {
               </div>
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">COYH</div>
               <div className="text-[14px] leading-[1.7] text-muted">Football was something I never watched, played or gave any interest in when growing up.
-                It wasn&apod;t until my little bro go tinto it that I gave it my full attention.
+                It wasn&apos;t until my little bro go tinto it that I gave it my full attention.
                 Then from there it was every weekend, going to the matches, getting the team jersey and sitting through the highs
                 and lows of it all.
               </div>
