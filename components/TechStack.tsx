@@ -4,7 +4,7 @@ import StackIcon from "tech-stack-icons";
 
 const TechStack = () => {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
-  const techStack: string[] = ['react', 'nodejs', 'elastic', 'storybook', 'github', 'jenkins'];
+  const techStack: string[] = ['react', 'nodejs', 'elastic', 'storybook', 'github'];
 
   return (
     <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>

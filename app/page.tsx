@@ -4,8 +4,10 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import StackIcon from 'tech-stack-icons';
 import AnimatedProjectStack, { CardItem } from "@/components/ui/animate-card-animation"
 import TechStack from "@/components/TechStack";
-import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
-import { FooterCard } from "@/components/footer-card";
+import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight } from "lucide-react";
+import { FooterCard } from "@/components/footer-card"
+import CardCollage from "@/components/ui/card-collage"
+import { ScrollArrow } from "@/components/ui/scroll-arrow"
 
 const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
 
@@ -49,25 +51,37 @@ export default function Home() {
       {/* Hero */}
       <section
         id="hero"
-        className="min-h-[90dvh] flex flex-col justify-start px-[60px] pt-[160px] pb-[80px] relative overflow-hidden max-md:px-6 max-md:pt-[120px] max-md:pb-[60px]"
+        className="min-h-[90dvh] flex items-start justify-between gap-16 px-[60px] pt-[160px] pb-[80px] relative overflow-hidden max-md:flex-col max-md:gap-10 max-md:px-6 max-md:pt-[120px] max-md:pb-[110px]"
       >
+        {/* Left column: title + bio + tech stack */}
+        <div className="flex flex-col flex-1">
+          <h1 className="animate-hero-title text-[clamp(72px,11vw,160px)] font-bold leading-[0.9] tracking-[-0.04em] text-black">
+            Full-Stack<br />Engineer.<span className="text-apex animate-cursor">|</span>
+          </h1>
 
-        <h1 className="animate-hero-title text-[clamp(72px,11vw,160px)] font-bold leading-[0.9] tracking-[-0.04em] text-black">
-          Full-Stack<br />Engineer.<span className="text-apex animate-cursor">|</span>
-        </h1>
-
-        <div className="animate-hero-sub flex items-end justify-between mt-12 gap-10 max-md:flex-col max-md:items-start">
-          <div
-          ><p className="text-[18px] font-normal text-muted max-w-[420px] leading-[1.6] tracking-[-0.01em]">
-            <strong className="text-black font-semibold">Luke Sizmur.</strong> - That&apos;s me! I am a developer with a degree in software engineering and a keen eye for detail.
-          </p>
+          <div className="animate-hero-sub mt-12">
+            <p className="text-[18px] font-normal text-muted max-w-[420px] leading-[1.6] tracking-[-0.01em]">
+              <strong className="text-black font-semibold">Luke Sizmur.</strong> - That&apos;s me! I am a developer with a degree in software engineering and a keen eye for detail.
+            </p>
             <div style={{marginTop: '10px'}}>
               <TechStack />
             </div>
           </div>
+
+        </div>
+
+        {/* Right column: collage + CTA — desktop right-aligned, mobile centred below bio */}
+        <div className="flex flex-col items-end gap-6 flex-shrink-0 max-md:items-center max-md:w-full">
+          <CardCollage
+            cards={[
+              { src: "/linkedin-profile-image.jpeg", alt: "Luke Sizmur" },
+              { src: "/HMS-Waverly-captain-portrait.jpeg", alt: "HMS Waverly" },
+              { src: "/Ice-hockey.jpg", alt: "Ice Hockey Match" },
+            ]}
+          />
           <a
             href="#contact"
-            className="hero-cta inline-flex items-center gap-3 bg-black text-cream no-underline text-[14px] font-semibold tracking-[-0.01em] pl-6 pr-[14px] py-[14px] rounded-full transition-all duration-500 flex-shrink-0 hover:bg-apex hover:scale-[1.02]"
+            className="hero-cta inline-flex items-center gap-3 bg-black text-cream no-underline text-[14px] font-semibold tracking-[-0.01em] pl-6 pr-[14px] py-[14px] rounded-full transition-all duration-500 hover:bg-apex hover:scale-[1.02]"
           >
             Get in touch
             <span className="hero-cta-icon w-8 h-8 rounded-full bg-white/[0.12] flex items-center justify-center transition-transform duration-500">
@@ -76,9 +90,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="animate-hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2">
-          <ChevronDown size={28} strokeWidth={1.5} className="text-apex arrow-jump" />
-        </div>
+        <ScrollArrow />
       </section>
 
       {/* About */}
@@ -272,7 +284,7 @@ export default function Home() {
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">My current library</div>
               <div className="text-[14px] leading-[1.7] text-muted">I gravitate towards fiction as a way to explore new worlds and ideas. I particularly enjoy sci-fi.</div>
               <ul className="personal-list list-none mt-5 flex flex-col gap-2.5">
-                {['Project Hail Mary', 'Ultra 85', 'Steve Jobs', 'The Martian'].map((book) => (
+                {['Project Hail Mary', 'Ultra 85', 'Steve Jobs', 'The Oddysey'].map((book) => (
                   <li key={book} className="flex items-center gap-3 text-[14px] text-[#5a5650] font-medium">
                     {book}
                   </li>
@@ -285,13 +297,13 @@ export default function Home() {
           <div className="reveal reveal-delay-2 col-span-2 rounded-[20px] bg-smoke border border-smoke p-0.5 card-hover-light max-md:col-span-1">
             <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full">
               <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
-                Football
+                Photography
               </div>
-              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">COYH</div>
-              <div className="text-[14px] leading-[1.7] text-muted">Football was something I never watched, played or gave any interest in when growing up.
-                It wasn&apos;t until my little bro go tinto it that I gave it my full attention.
-                Then from there it was every weekend, going to the matches, getting the team jersey and sitting through the highs
-                and lows of it all.
+              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">Life through my lense</div>
+              <div className="text-[14px] leading-[1.7] text-muted">For as long as I can remember I have always loved taking photos.
+                I tend to gravitate to architectural pieces and it shows when looking through my phones gallery.
+                I shoot a lot of photos on my iphone 15 pro but occasionally I will take my FujiFilm X100T out with me - this always
+                gives the photo a warmer feeling due to the film simulations baked in.
               </div>
             </div>
           </div>
