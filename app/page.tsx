@@ -1,12 +1,12 @@
 import { FooterShader } from "@/components/footer-shader"
 import { HomeNav } from "@/components/home-nav"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import StackIcon from 'tech-stack-icons';
 import AnimatedProjectStack, { CardItem } from "@/components/ui/animate-card-animation"
 import TechStack from "@/components/TechStack";
 import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight } from "lucide-react";
 import { FooterCard } from "@/components/footer-card"
 import CardCollage from "@/components/ui/card-collage"
+import PhotographyFan from "@/components/ui/photography-fan"
 import { ScrollArrow } from "@/components/ui/scroll-arrow"
 
 const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
@@ -14,8 +14,8 @@ const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
 const PROJECTS: CardItem[] = [
   {
     id: 1,
-    title: "Analytics Dashboard",
-    description: "Real-time data visualisation platform built with React & Highcharts",
+    title: "ReadySteadySmile",
+    description: "A photobooth company operating globally",
     image: "/project-dashboard.svg",
     badge: "React",
   },
@@ -51,7 +51,7 @@ export default function Home() {
       {/* Hero */}
       <section
         id="hero"
-        className="min-h-[90dvh] flex items-start justify-between gap-16 px-[60px] pt-[160px] pb-[80px] relative overflow-hidden max-md:flex-col max-md:gap-10 max-md:px-6 max-md:pt-[120px] max-md:pb-[110px]"
+        className="min-h-[90dvh] flex items-start justify-between gap-16 px-[90px] pt-[160px] pb-[80px] relative overflow-hidden max-md:flex-col max-md:gap-10 max-md:px-6 max-md:pt-[120px] max-md:pb-[110px]"
       >
         {/* Left column: title + bio + tech stack */}
         <div className="flex flex-col flex-1">
@@ -293,20 +293,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Football — wide */}
-          <div className="reveal reveal-delay-2 col-span-2 rounded-[20px] bg-smoke border border-smoke p-0.5 card-hover-light max-md:col-span-1">
-            <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full">
-              <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
-                Photography
-              </div>
-              <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">Life through my lense</div>
-              <div className="text-[14px] leading-[1.7] text-muted">For as long as I can remember I have always loved taking photos.
-                I tend to gravitate to architectural pieces and it shows when looking through my phones gallery.
-                I shoot a lot of photos on my iphone 15 pro but occasionally I will take my FujiFilm X100T out with me - this always
-                gives the photo a warmer feeling due to the film simulations baked in.
-              </div>
-            </div>
-          </div>
+          {/* Photography — wide, with fan animation */}
+          <PhotographyFan />
         </div>
       </section>
       
