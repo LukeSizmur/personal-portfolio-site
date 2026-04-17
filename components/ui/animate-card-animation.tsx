@@ -2,13 +2,10 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { AnimatePresence, motion } from "framer-motion"
 import { ChevronRight } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,186 +15,219 @@ export interface CardItem {
   description: string
   image: string
   badge?: string
+  writeup?: {
+    summary: string
+    highlights: string[]
+    tech: string[]
+  }
 }
 
-interface AnimatedCardStackProps {
-  items?: CardItem[]
-  className?: string
-  header?: React.ReactNode
-}
-
-// Visual stack — index 0 is the front (topmost) card
-const STACK_POSITIONS = [
-  { scale: 1,     y: 0   },
-  { scale: 0.955, y: -22 },
-  { scale: 0.91,  y: -44 },
+const PANEL_THEMES = [
+  { bg: "bg-soca",   badgeText: "text-[var(--apex)]",    badgeBg: "bg-[rgba(232,62,11,0.14)] border-[rgba(232,62,11,0.16)]" },
+  { bg: "bg-selfie", badgeText: "text-[var(--amber)]",   badgeBg: "bg-[rgba(245,166,35,0.14)] border-[rgba(245,166,35,0.16)]" },
+  { bg: "bg-hct",    badgeText: "text-[var(--apex)]",    badgeBg: "bg-[rgba(232,62,11,0.14)] border-[rgba(232,62,11,0.16)]" },
+  { bg: "bg-soca",   badgeText: "text-[var(--oatmeal)]", badgeBg: "bg-white/[0.08] border-white/10" },
 ]
 
-function CardContent({ item }: { item: CardItem }) {
+interface ProjectsOverscrollProps {
+  items?: CardItem[]
+  className?: string
+}
+
+function WriteupSection({ writeup, theme }: { writeup: NonNullable<CardItem["writeup"]>; theme: typeof PANEL_THEMES[0] }) {
   return (
-    <div className="flex h-full w-full flex-col gap-4 rounded-[28px] bg-[#141412] p-3 text-oatmeal">
-      <div className="relative flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[24px] outline outline-1 outline-white/8">
-        <img
-          src={item.image}
-          alt={item.title}
-          className="h-full w-full select-none object-cover"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,0.03)_0%,rgba(20,20,18,0.18)_100%)]" />
-        {item.badge ? (
-          <span className="absolute left-4 top-4 rounded-full border border-[rgba(232,62,11,0.16)] bg-[rgba(232,62,11,0.14)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-apex">
-            {item.badge}
-          </span>
-        ) : null}
+    <div className="flex flex-col gap-10 pb-[60px]">
+      <div className="border-t border-white/10" />
+
+      <p className="text-[17px] leading-[1.8] text-[var(--oatmeal)]/70 max-w-[700px]">
+        {writeup.summary}
+      </p>
+
+      <div className="flex flex-col gap-4">
+        <span className="text-[10px] uppercase tracking-[0.14em] text-[var(--oatmeal)]/35 font-semibold">
+          What we built
+        </span>
+        <ul className="flex flex-col gap-3">
+          {writeup.highlights.map((h, i) => (
+            <li key={i} className="flex items-start gap-3">
+              <div className="w-1 h-1 rounded-full bg-[var(--apex)] mt-[10px] flex-shrink-0" />
+              <span className="text-[15px] leading-[1.7] text-[var(--oatmeal)]/65">{h}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="flex w-full items-center justify-between gap-4 px-3 pb-4">
-        <div className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate text-[20px] font-bold tracking-[-0.03em] text-oatmeal">
-            {item.title}
-          </span>
-          <span className="text-[14px] text-oatmeal/58">{item.description}</span>
+
+      <div className="flex items-center justify-between gap-8 flex-wrap">
+        <div className="flex flex-wrap gap-2">
+          {writeup.tech.map((t) => (
+            <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-[var(--oatmeal)]/50 font-medium">
+              {t}
+            </span>
+          ))}
         </div>
-        <button className="flex h-11 shrink-0 cursor-pointer select-none items-center gap-1 rounded-full bg-oatmeal pl-5 pr-4 text-sm font-semibold text-black transition-colors hover:bg-apex hover:text-cream">
-          Read
-          <ChevronRight className="size-4" strokeWidth={2.5} />
+        <button className="flex-shrink-0 flex items-center gap-1.5 rounded-full bg-[var(--oatmeal)] text-black px-6 py-3 text-[14px] font-semibold transition-colors hover:bg-[var(--apex)] hover:text-[var(--cream)]">
+          Read <ChevronRight className="size-4" strokeWidth={2.5} />
         </button>
       </div>
     </div>
   )
 }
 
-// Simple vertical list used on mobile — no pinning or scroll hijacking
-function MobileCardList({ items, className }: { items: CardItem[]; className?: string }) {
-  return (
-    <div className={cn("flex flex-col gap-4 px-4 pb-12", className)}>
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="overflow-hidden rounded-[32px] border border-white/[0.08] bg-[rgba(18,18,16,0.96)] p-1.5 shadow-[0_32px_100px_rgba(0,0,0,0.45)]"
-        >
-          <CardContent item={item} />
-        </div>
-      ))}
-    </div>
-  )
-}
-
-export default function AnimatedProjectStack({
-  items = [],
-  className,
-  header,
-}: AnimatedCardStackProps) {
-  const sectionRef  = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile]           = useState<boolean | null>(null)
-  const [revealedCount, setRevealedCount] = useState(1)
-  const revealedRef = useRef(1)
+export default function ProjectsOverscroll({ items = [], className }: ProjectsOverscrollProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
   }, [])
 
-  // Desktop-only: pinned scroll animation
   useEffect(() => {
     if (isMobile === null || isMobile) return
-    const el = sectionRef.current
-    if (!el || items.length === 0) return
+    const container = containerRef.current
+    if (!container || items.length === 0) return
 
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top top",
-        end: `+=${items.length * 100}%`,
-        pin: true,
-        scrub: 1,
-        onUpdate: (self) => {
-          const count = Math.round(self.progress * items.length)
-          if (count !== revealedRef.current) {
-            revealedRef.current = count
-            setRevealedCount(count)
-          }
-        },
+      const allPanels = Array.from(container.querySelectorAll<HTMLElement>(".overscroll-panel"))
+      const animatedPanels = allPanels.slice(0, -1)
+
+      animatedPanels.forEach((panel) => {
+        const inner = panel.querySelector<HTMLElement>(".overscroll-panel-inner")!
+        const panelHeight = inner.offsetHeight
+        const winHeight = window.innerHeight
+        const difference = panelHeight - winHeight
+        const fakeScrollRatio = difference > 0 ? difference / (difference + winHeight) : 0
+
+        if (fakeScrollRatio) {
+          panel.style.marginBottom = `${panelHeight * fakeScrollRatio}px`
+        }
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: panel,
+            start: "bottom bottom",
+            end: () => fakeScrollRatio ? `+=${inner.offsetHeight}` : "bottom top",
+            pinSpacing: false,
+            pin: true,
+            scrub: true,
+          },
+        })
+
+        if (fakeScrollRatio) {
+          tl.to(inner, {
+            yPercent: -100,
+            y: window.innerHeight,
+            duration: 1 / (1 - fakeScrollRatio) - 1,
+            ease: "none",
+          })
+        }
+
+        tl
+          .fromTo(panel, { scale: 1, opacity: 1 }, { scale: 0.7, opacity: 0.5, duration: 0.9 })
+          .to(panel, { opacity: 0, duration: 0.1 })
       })
-    }, el)
+
+      ScrollTrigger.refresh()
+    }, container)
 
     return () => ctx.revert()
-  }, [isMobile, items.length])
+  }, [isMobile, items])
 
   if (isMobile === null) return <div className="min-h-screen bg-black" />
 
   if (isMobile) {
     return (
-      <div className="bg-black pt-10">
-        {header && <div className="px-6 mb-8">{header}</div>}
-        <MobileCardList items={items} className={className} />
+      <div className="flex flex-col gap-4 px-4 pb-12">
+        {items.map((item, i) => {
+          const theme = PANEL_THEMES[i] ?? PANEL_THEMES[PANEL_THEMES.length - 1]
+          return (
+            <div key={item.id} className={`rounded-[24px] overflow-hidden ${theme.bg} p-6 flex flex-col gap-4`}>
+              {item.badge && (
+                <span className={`self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] ${theme.badgeText} ${theme.badgeBg}`}>
+                  {item.badge}
+                </span>
+              )}
+              <img src={item.image} alt={item.title} className="w-full max-h-[220px] object-contain" />
+              <div className="flex flex-col gap-2">
+                <h3 className="text-[22px] font-bold tracking-tight text-[var(--oatmeal)]">{item.title}</h3>
+                <p className="text-[14px] text-[var(--oatmeal)]/60">{item.description}</p>
+              </div>
+              {item.writeup && (
+                <div className="flex flex-col gap-4 pt-2 border-t border-white/10">
+                  <p className="text-[13px] leading-[1.7] text-[var(--oatmeal)]/60">{item.writeup.summary}</p>
+                  <ul className="flex flex-col gap-2">
+                    {item.writeup.highlights.map((h, hi) => (
+                      <li key={hi} className="flex items-start gap-2">
+                        <div className="w-1 h-1 rounded-full bg-[var(--apex)] mt-[8px] flex-shrink-0" />
+                        <span className="text-[13px] leading-[1.6] text-[var(--oatmeal)]/55">{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap gap-2">
+                    {item.writeup.tech.map((t) => (
+                      <span key={t} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] text-[var(--oatmeal)]/50">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )
+        })}
       </div>
     )
   }
 
   return (
-    <div
-      ref={sectionRef}
-      className={cn(
-        "relative flex min-h-dvh flex-col bg-black",
-        className,
-      )}
-    >
-      {header && (
-        <div className="relative shrink-0 px-[60px] pt-[72px] pb-8 max-md:px-6 max-md:pt-10">
-          {header}
-        </div>
-      )}
+    <div ref={containerRef} className={className}>
+      {items.map((item, i) => {
+        const theme = PANEL_THEMES[i] ?? PANEL_THEMES[PANEL_THEMES.length - 1]
+        const hasWriteup = Boolean(item.writeup)
+        return (
+          <div key={item.id} className={`overscroll-panel ${theme.bg} w-full`}>
+            <div className="overscroll-panel-inner flex flex-col px-[60px] pt-[60px] min-h-[100dvh]">
 
-      <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-4 pb-12">
-        <div className="relative h-[560px] w-[min(100%,calc(100vw-32px))]">
-          <AnimatePresence>
-            {items.slice(0, revealedCount).map((item, i) => {
-              const stackIndex = revealedCount - 1 - i
-              const pos    = STACK_POSITIONS[stackIndex] ?? STACK_POSITIONS[STACK_POSITIONS.length - 1]
-              const zIndex = items.length - stackIndex
+              {/* Top row: badge + title/desc on left, image on right */}
+              <div className={`flex gap-12 ${hasWriteup ? "items-start" : "items-center flex-1"} ${!hasWriteup ? "pb-[60px]" : "pb-0"}`}>
+                <div className="flex flex-col gap-6 flex-1">
+                  {item.badge && (
+                    <span className={`self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] ${theme.badgeText} ${theme.badgeBg}`}>
+                      {item.badge}
+                    </span>
+                  )}
+                  <div className="flex flex-col gap-3">
+                    <h3 className="text-[clamp(28px,3.5vw,56px)] font-bold tracking-[-0.03em] leading-[1.1] text-[var(--oatmeal)]">
+                      {item.title}
+                    </h3>
+                    <p className="text-[15px] leading-[1.6] text-[var(--oatmeal)]/60 max-w-[440px]">
+                      {item.description}
+                    </p>
+                  </div>
+                  {!hasWriteup && (
+                    <button className="self-start flex items-center gap-1.5 rounded-full bg-[var(--oatmeal)] text-black px-6 py-3 text-[14px] font-semibold transition-colors hover:bg-[var(--apex)] hover:text-[var(--cream)]">
+                      Read <ChevronRight className="size-4" strokeWidth={2.5} />
+                    </button>
+                  )}
+                </div>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={`object-contain select-none flex-shrink-0 ${hasWriteup ? "w-[45%] max-h-[52vh] pt-2" : "w-[45%] max-h-[60vh]"}`}
+                />
+              </div>
 
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ y: 300, scale: 0.92, opacity: 0 }}
-                  animate={{ y: pos.y, scale: pos.scale, opacity: 1 }}
-                  exit={{ y: 300, scale: 0.92, opacity: 0 }}
-                  transition={{ type: "spring", bounce: 0, duration: 0.72 }}
-                  style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex }}
-                  className="flex h-[500px] items-center justify-center overflow-hidden rounded-[32px] border border-white/[0.08] bg-[rgba(18,18,16,0.96)] p-1.5 shadow-[0_32px_100px_rgba(0,0,0,0.45)] will-change-transform"
-                >
-                  <CardContent item={item} />
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
-        </div>
-
-        <div className="mt-8 flex items-center gap-2">
-          {items.map((item, i) => (
-            <div
-              key={item.id}
-              className={cn(
-                "rounded-full transition-all duration-500",
-                i < revealedCount
-                  ? "h-1.5 w-6 bg-oatmeal/60"
-                  : "h-1.5 w-1.5 bg-white/20",
+              {/* Writeup section — only renders when content is provided */}
+              {item.writeup && (
+                <WriteupSection writeup={item.writeup} theme={theme} />
               )}
-            />
-          ))}
-        </div>
-      </div>
 
-      <motion.div
-        animate={{ opacity: revealedCount > 1 ? 0 : 1 }}
-        transition={{ duration: 0.4 }}
-        className="absolute bottom-8 right-[60px] flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.15em] text-white/30 max-md:right-6"
-        aria-hidden
-      >
-        <span className="h-px w-8 bg-white/20" />
-        Scroll
-      </motion.div>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }

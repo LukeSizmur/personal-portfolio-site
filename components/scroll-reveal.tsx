@@ -39,7 +39,7 @@ export function ScrollReveal() {
           })
         })
       })
-    }, 300)
+    }, 500)
 
     return () => {
       clearTimeout(timer)

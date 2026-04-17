@@ -97,6 +97,13 @@ body::before {
   background: radial-gradient(ellipse at 50% 50%, rgba(232,62,11,0.15) 0%, transparent 70%), #0d0c0a;
 }
 
+/* ── Overscroll panel structure ── */
+.overscroll-panel {
+  position: relative;
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
 
 /* Hero entry animations */
 .animate-hero-eyebrow {

@@ -1,13 +1,14 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState, useCallback } from "react"
+import { createPortal } from "react-dom"
 import { gsap } from "gsap"
 import Image from "next/image"
 
 const PHOTOS = [
-  { src: "/linkedin-profile-image.jpeg",      alt: "Luke Sizmur" },
-  { src: "/HMS-Waverly-captain-portrait.jpeg", alt: "HMS Waverly" },
-  { src: "/Ice-hockey.jpg",                   alt: "Ice Hockey" },
+  { src: "/sebastian_schub_photography.JPEG", alt: "Sebastian Schub Concert Photo" },
+  { src: "/Fujifilm_photography.JPG",  alt: "Fujifilm X100T photography" },
+  { src: "/London_photography.JPEG", alt: "Picture of Westminster Cathedral" },
 ]
 
 // Resting (fanned) positions relative to stack centre
@@ -23,6 +24,30 @@ const HIDDEN_Y = 220
 export default function PhotographyFan() {
   const cardRef   = useRef<HTMLDivElement>(null)
   const photoRefs = useRef<(HTMLDivElement | null)[]>([null, null, null])
+  const [modalPhoto, setModalPhoto] = useState<{ src: string; alt: string } | null>(null)
+  const isFannedRef = useRef(false)
+
+  const closeModal = useCallback(() => setModalPhoto(null), [])
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeModal() }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [closeModal])
+
+  useEffect(() => {
+    if (modalPhoto) {
+      document.documentElement.style.overflow = "hidden"
+      document.body.style.overflow = "hidden"
+    } else {
+      document.documentElement.style.overflow = ""
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.documentElement.style.overflow = ""
+      document.body.style.overflow = ""
+    }
+  }, [modalPhoto])
 
   useEffect(() => {
     const els = photoRefs.current
@@ -44,6 +69,7 @@ export default function PhotographyFan() {
     if (!card) return
 
     const fanOut = () => {
+      isFannedRef.current = true
       els.forEach((el, i) => {
         if (!el) return
         gsap.to(el, {
@@ -54,14 +80,14 @@ export default function PhotographyFan() {
           opacity: 1,
           duration: 0.6,
           ease: "power2.inOut",
-          delay: i * 0.04,   // tiny stagger — left pops first
+          delay: i * 0.04,
           overwrite: true,
         })
       })
     }
 
     const collapse = () => {
-      // Reverse stagger: right first
+      isFannedRef.current = false
       els.slice().reverse().forEach((el, i) => {
         if (!el) return
         gsap.to(el, {
@@ -77,6 +103,19 @@ export default function PhotographyFan() {
         })
       })
     }
+
+    // Per-photo hover lift
+    els.forEach((el, i) => {
+      if (!el) return
+      el.addEventListener("mouseenter", () => {
+        if (!isFannedRef.current) return
+        gsap.to(el, { y: -28, scale: 1.08, duration: 0.25, ease: "power2.out", overwrite: "auto" })
+      })
+      el.addEventListener("mouseleave", () => {
+        if (!isFannedRef.current) return
+        gsap.to(el, { y: 0, scale: 1, duration: 0.3, ease: "power2.out", overwrite: "auto" })
+      })
+    })
 
     card.addEventListener("mouseenter", fanOut)
     card.addEventListener("mouseleave", collapse)
@@ -108,14 +147,15 @@ export default function PhotographyFan() {
 
         {/* Fan stage — absolutely positioned so it adds no height to the card */}
         <div
-          className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none"
+          className="absolute inset-x-0 bottom-0 flex justify-center"
           style={{ height: 170 }}
         >
           {PHOTOS.map((photo, i) => (
             <div
               key={photo.src}
               ref={(el) => { photoRefs.current[i] = el }}
-              className="absolute bottom-0"
+              className="absolute bottom-0 cursor-pointer"
+              onClick={() => isFannedRef.current && setModalPhoto(photo)}
               style={{
                 width: 120,
                 height: 170,
@@ -138,6 +178,37 @@ export default function PhotographyFan() {
           ))}
         </div>
       </div>
+
+      {/* Full-screen modal — portalled to body to escape stacking context */}
+      {modalPhoto && typeof document !== "undefined" && createPortal(
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={closeModal}
+        >
+          <div
+            className="relative w-fit"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={modalPhoto.src}
+              alt={modalPhoto.alt}
+              width={1200}
+              height={900}
+              className="block"
+              style={{ width: "auto", height: "auto", maxWidth: "90vw", maxHeight: "90vh" }}
+              draggable={false}
+            />
+            <button
+              onClick={closeModal}
+              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center text-lg hover:bg-black/75 transition-colors"
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

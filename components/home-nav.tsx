@@ -22,24 +22,27 @@ export function HomeNav() {
   const isScrolled = useRef(false)
   const isOpen = useRef(false)
 
-  // Active section tracking
+  // Active section tracking — scroll-position based so it works with tall GSAP-pinned sections
   useEffect(() => {
-    const sections = NAV_LINKS
-      .filter((id) => id !== "home")
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null)
+    const sectionIds = NAV_LINKS.filter((id) => id !== "home") as string[]
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible?.target.id) setActiveSection(visible.target.id)
-      },
-      { rootMargin: "-20% 0px -55% 0px", threshold: [0.1, 0.35, 0.6] },
-    )
-    sections.forEach((s) => observer.observe(s))
-    return () => observer.disconnect()
+    const findActive = () => {
+      if (window.scrollY < 40) {
+        setActiveSection("home")
+        return
+      }
+      const checkPoint = window.innerHeight * 0.35
+      let current = sectionIds[0]
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= checkPoint) current = id
+      }
+      setActiveSection(current)
+    }
+
+    window.addEventListener("scroll", findActive, { passive: true })
+    findActive()
+    return () => window.removeEventListener("scroll", findActive)
   }, [])
 
   // Mount setup
@@ -148,7 +151,6 @@ export function HomeNav() {
         isScrolled.current = true
         showBurger()
       }
-      if (window.scrollY < 40) setActiveSection("home")
     }
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)

@@ -1,7 +1,7 @@
 import { FooterShader } from "@/components/footer-shader"
 import { HomeNav } from "@/components/home-nav"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import AnimatedProjectStack, { CardItem } from "@/components/ui/animate-card-animation"
+import ProjectsOverscroll, { CardItem } from "@/components/ui/animate-card-animation"
 import TechStack from "@/components/TechStack";
 import { MonitorSmartphone, LayoutTemplate, LineChart, ArrowUpRight, ArrowRight } from "lucide-react";
 import { FooterCard } from "@/components/footer-card"
@@ -18,6 +18,16 @@ const PROJECTS: CardItem[] = [
     description: "A photobooth company operating globally",
     image: "/project-dashboard.svg",
     badge: "React",
+    writeup: {
+      summary: "ReadySteadySmile runs a network of photobooths at events across the UK, Europe, and Australia. I built and maintain their full booking and operations platform — from customer-facing flows to the dashboard their on-site staff use on the day.",
+      highlights: [
+        "Customer booking flow with real-time availability, add-ons, and automated confirmation emails",
+        "Ops dashboard for managing events, staff assignments, equipment, and on-the-day logistics",
+        "Photo delivery system: guests receive a gallery link via SMS seconds after each session",
+        "Multi-currency pricing with discount codes, invoice generation, and Stripe integration",
+      ],
+      tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "AWS S3"],
+    },
   },
   {
     id: 2,
@@ -25,6 +35,16 @@ const PROJECTS: CardItem[] = [
     description: "Multi-theme component library with CSS custom properties & dark mode",
     image: "/project-design-system.svg",
     badge: "Design",
+    writeup: {
+      summary: "A component library built to serve multiple product surfaces — a public-facing app, an internal admin tool, and a marketing site — from a single source of truth. Theming is driven entirely by CSS custom properties, with zero runtime JS overhead.",
+      highlights: [
+        "50+ components covering forms, navigation, data display, and overlays",
+        "Theme engine using CSS custom properties: swap a token file and the entire UI re-skins",
+        "Dark mode baked in at the token level — no conditional class toggling",
+        "Storybook documentation with live controls and accessibility annotations",
+      ],
+      tech: ["CSS Custom Properties", "React", "TypeScript", "Storybook", "Figma Tokens"],
+    },
   },
   {
     id: 3,
@@ -32,6 +52,16 @@ const PROJECTS: CardItem[] = [
     description: "Elasticsearch-powered SIEM event log viewer with live alerting",
     image: "/project-security.svg",
     badge: "Fullstack",
+    writeup: {
+      summary: "A security information and event management (SIEM) tool for a managed security services provider. The console gives analysts a single pane to query billions of log events, triage alerts, and investigate incidents in real time.",
+      highlights: [
+        "Elasticsearch query builder with saved searches, time range pickers, and field filtering",
+        "Live alert feed with severity routing, assignment, and audit trail per alert",
+        "Incident timeline: correlate events across sources with a draggable time scrubber",
+        "Role-based access control — analysts see only the tenants assigned to them",
+      ],
+      tech: ["React", "Elasticsearch", "Node.js", "WebSockets", "Redis", "Docker"],
+    },
   },
   {
     id: 4,
@@ -39,6 +69,16 @@ const PROJECTS: CardItem[] = [
     description: "This site — hand-crafted in Next.js with custom scroll animations",
     image: "/project-portfolio.svg",
     badge: "Next.js",
+    writeup: {
+      summary: "Wanted a portfolio that felt considered rather than templated. Every animation is hand-rolled with GSAP — no scroll libraries, no pre-made transitions. The goal was to demonstrate what I care about: tight motion design, clean code, and details that reward attention.",
+      highlights: [
+        "GSAP overscroll panels: each project section pins and fake-scrolls before its exit",
+        "Collage of personal photos with parallax depth on mousemove",
+        "Photography card that fans out images on hover using staggered GSAP tweens",
+        "Scroll-driven nav with a pill-to-burger transition on mobile",
+      ],
+      tech: ["Next.js", "TypeScript", "GSAP", "Tailwind CSS", "Vercel"],
+    },
   },
 ];
 
@@ -158,7 +198,7 @@ export default function Home() {
           </a>
         </div>
 
-        <AnimatedProjectStack items={PROJECTS} />
+        <ProjectsOverscroll items={PROJECTS} />
 
       </section>
 
