@@ -91,6 +91,10 @@ body::before {
   transform-origin: center center;
 }
 
+.overscroll-panel-inner {
+  will-change: transform;
+}
+
 
 /* Hero entry animations */
 .animate-hero-eyebrow {

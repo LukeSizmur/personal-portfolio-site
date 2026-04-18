@@ -1,7 +1,6 @@
 "use client"
 
-/* eslint-disable @next/next/no-img-element */
-
+import Image from "next/image"
 import { useRef, useEffect, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -63,28 +62,30 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
           panel.style.marginBottom = `${panelHeight * fakeScrollRatio}px`
         }
 
+        const endValue = fakeScrollRatio ? `+=${inner.offsetHeight}` : "bottom top"
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: panel,
             start: "bottom bottom",
-            end: () => fakeScrollRatio ? `+=${inner.offsetHeight}` : "bottom top",
+            end: endValue,
             pinSpacing: false,
             pin: true,
-            scrub: true,
+            scrub: 0.5,
           },
         })
 
         if (fakeScrollRatio) {
           tl.to(inner, {
-            yPercent: -100,
-            y: window.innerHeight,
+            y: -difference,
+            force3D: true,
             duration: 1 / (1 - fakeScrollRatio) - 1,
             ease: "none",
           })
         }
 
         tl
-          .fromTo(panel, { scale: 1, opacity: 1 }, { scale: 0.7, opacity: 0.5, duration: 0.9 })
+          .fromTo(panel, { scale: 1, opacity: 1 }, { scale: 0.85, opacity: 0.6, duration: 0.9, force3D: true })
           .to(panel, { opacity: 0, duration: 0.1 })
       })
 
@@ -119,10 +120,14 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                   {item.badge}
                 </span>
               )}
-              <img
+              <Image
                 src={item.image}
                 alt={item.title}
+                width={800}
+                height={600}
+                sizes="(max-width: 768px) 100vw"
                 className="w-full max-h-[220px] object-cover object-top rounded-xl"
+                priority={item.id === 1}
               />
               <div className="flex flex-col gap-2">
                 <h3 className={`text-[22px] font-bold tracking-tight ${txt}`}>{item.title}</h3>
@@ -256,13 +261,15 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
 
               {/* Right column: large image */}
               <div className="flex-1 flex items-center justify-center py-[60px] pr-[60px] pl-6">
-                <div className="w-full h-full flex items-center justify-center">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className={`w-full max-h-[80vh] object-cover object-top rounded-2xl select-none ${isLight ? "border border-black/10 shadow-[0_32px_80px_rgba(0,0,0,0.15)]" : "border border-white/10 shadow-[0_32px_80px_rgba(0,0,0,0.5)]"}`}
-                  />
-                </div>
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  width={1280}
+                  height={900}
+                  sizes="54vw"
+                  className={`w-full max-h-[80vh] object-cover object-top rounded-2xl select-none ${isLight ? "border border-black/10 shadow-[0_32px_80px_rgba(0,0,0,0.15)]" : "border border-white/10 shadow-[0_32px_80px_rgba(0,0,0,0.5)]"}`}
+                  priority={item.id === 1}
+                />
               </div>
 
             </div>
