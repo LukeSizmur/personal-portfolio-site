@@ -82,20 +82,7 @@ body::before {
     font-size: 1rem;
 }
 
-/* Gradient backgrounds for project cards */
-.bg-soca {
-  background: radial-gradient(ellipse at 30% 50%, rgba(232,62,11,0.3) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 30%, rgba(245,166,35,0.2) 0%, transparent 50%), #0d0d0b;
-}
-
-.bg-selfie {
-  background: radial-gradient(ellipse at 60% 40%, rgba(100,180,255,0.2) 0%, transparent 60%),
-              radial-gradient(ellipse at 20% 70%, rgba(180,100,255,0.15) 0%, transparent 50%), #0a0a12;
-}
-
-.bg-hct {
-  background: radial-gradient(ellipse at 50% 50%, rgba(232,62,11,0.15) 0%, transparent 70%), #0d0c0a;
-}
+/* Gradient backgrounds for project cards — now handled via inline styles in CardItem data */
 
 /* ── Overscroll panel structure ── */
 .overscroll-panel {
