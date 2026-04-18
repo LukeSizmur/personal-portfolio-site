@@ -307,12 +307,38 @@ export default function Home() {
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">In my spare time</div>
               <div className="text-[14px] leading-[1.7] text-muted">Outside of my day to day work, I&apos;m usually keeping up with the latest tech trends, deep in a game, or running a small newsletter curating interesting corners of the internet.</div>
               <ul className="personal-list list-none mt-5 flex flex-col gap-2.5">
-                {['Football', 'Gaming', 'Movies', 'Newsletter'].map((hobby) => (
+                {['Football', 'Gaming', 'Movies', 'Substack Newsletter'].map((hobby) => (
                   <li key={hobby} className="flex items-center gap-3 text-[14px] text-[#5a5650] font-medium">
                     {hobby}
                   </li>
                 ))}
               </ul>
+              {/* Curved dashed guide arrow */}
+              <svg
+                width="140"
+                height="80"
+                viewBox="0 0 130 80"
+                fill="none"
+                className="annotation-appear absolute bottom-[8px] right-[96px] pointer-events-none select-none hidden xl:block"
+              >
+                <defs>
+                  <marker id="qr-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                    <path d="M 1 1 L 6 4 L 1 7" stroke="#8a8580" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                  </marker>
+                </defs>
+                <text x="4" y="62" fontSize="10.5" fontStyle="italic" fontWeight="500" fill="#8a8580" transform="rotate(10, 4, 22)">
+                  Subscribe!
+                </text>
+                <path
+                  d="M 22 54 C 45 5, 85 -8, 122 12"
+                  stroke="#8a8580"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeDasharray="4.5 3.5"
+                  markerEnd="url(#qr-arrow)"
+                />
+              </svg>
+
               <div className="group absolute bottom-2 right-2 flex flex-col items-center gap-1.5 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-105">
                 <div className="p-1.5 rounded-2xl bg-black/5 ring-1 ring-black/[0.06]">
                   <div className="relative p-2 rounded-[calc(1rem-0.375rem)] bg-white overflow-hidden">
