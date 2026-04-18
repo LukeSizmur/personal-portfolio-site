@@ -230,3 +230,29 @@ body::before {
 .animate-cursor {
   animation: terminal-blink 1s step-end infinite;
 }
+
+@keyframes shimmer-once {
+  0%   { background-position: -200% center; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { background-position: 200% center; opacity: 0; }
+}
+
+.qr-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,210,255,0.35) 40%,
+    rgba(200,240,255,0.5)  48%,
+    rgba(255,255,255,0.7)  50%,
+    rgba(220,255,220,0.5)  52%,
+    rgba(255,230,180,0.35) 60%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: -200% center;
+}
+
+.group:hover .qr-shimmer {
+  animation: shimmer-once 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

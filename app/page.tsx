@@ -8,8 +8,7 @@ import { FooterCard } from "@/components/footer-card"
 import CardCollage from "@/components/ui/card-collage"
 import PhotographyFan from "@/components/ui/photography-fan"
 import { ScrollArrow } from "@/components/ui/scroll-arrow"
-
-const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const;
+import Image from "next/image";
 
 const PROJECTS: CardItem[] = [
   {
@@ -285,7 +284,7 @@ export default function Home() {
                 Film
               </div>
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">A proper cinephile.</div>
-              <div className="text-[14px] leading-[1.7] text-muted">I track every film I watch. I love getting lost in other worlds, but also in the behind the scenes of those worlds, how they are made, how and <span className='text-apex'>why</span> every decision </div>
+              <div className="text-[14px] leading-[1.7] text-muted">I love watching movies and tv shows, to the point that I track all the movies and shows via some awesome apps called <a className="text-blue-600 underline" href='https://apps.apple.com/app/id1630746993'>Sequel</a> and <a className="text-blue-600 underline" href='https://apps.apple.com/app/id6504503117'>Flix</a>. My favourite film within the last few years has to be <span className='text-apex'>BlackBerry 2023</span>, it just embodies all of what I love about the tech industry.</div>
               <div className="flex flex-wrap gap-2 mt-5">
                 {['BlackBerry 2023', 'Interstellar', 'Project Hail Mary', 'Spider-Man: Across The Spider-Verse', 'Spider-Man: Into The Spider-Verse', 'Star Wars: Episode III - Revenge of the Sith'].map((film) => (
                   <span
@@ -301,17 +300,35 @@ export default function Home() {
 
           {/* Interests */}
           <div className="reveal reveal-delay-1 rounded-[20px] bg-smoke border border-smoke p-0.5 card-hover-light">
-            <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full">
+            <div className="relative rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full">
               <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
                 Interests
               </div>
               <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">In my spare time</div>
-              <div className="text-[14px] leading-[1.7] text-muted">Outside of my day to say work, I&apos;m usually keeping up with the latest tech trends, deep in a game, or running a small newsletter curating interesting corners of the internet.</div>
-              <div className="flex gap-2.5 flex-wrap mt-5">
-                <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(232,62,11,0.08)] border border-[rgba(232,62,11,0.12)] text-apex">Football</span>
-                <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(245,166,35,0.08)] border border-[rgba(245,166,35,0.15)] text-amber">Gaming</span>
-                <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(100,180,255,0.08)] border border-[rgba(100,180,255,0.15)] text-[rgba(60,140,220,0.9)]">Movies</span>
-                <span className="text-[12px] font-semibold px-4 py-2 rounded-full tracking-[0.02em] bg-[rgba(43,43,43,0.06)] border border-[rgba(43,43,43,0.08)] text-muted">Newsletter</span>
+              <div className="text-[14px] leading-[1.7] text-muted">Outside of my day to day work, I&apos;m usually keeping up with the latest tech trends, deep in a game, or running a small newsletter curating interesting corners of the internet.</div>
+              <ul className="personal-list list-none mt-5 flex flex-col gap-2.5">
+                {['Football', 'Gaming', 'Movies', 'Newsletter'].map((hobby) => (
+                  <li key={hobby} className="flex items-center gap-3 text-[14px] text-[#5a5650] font-medium">
+                    {hobby}
+                  </li>
+                ))}
+              </ul>
+              <div className="group absolute bottom-2 right-2 flex flex-col items-center gap-1.5 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-105">
+                <div className="p-1.5 rounded-2xl bg-black/5 ring-1 ring-black/[0.06]">
+                  <div className="relative p-2 rounded-[calc(1rem-0.375rem)] bg-white overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <a href="https://lukesizmur.substack.com/">
+                      <Image
+                        src="/substack-qr-code.svg"
+                        alt="Substack newsletter QR code"
+                        className="w-14 h-14 block"
+                        width={14}
+                        height={14}
+                      />
+                    </a>
+                    <div className="qr-shimmer pointer-events-none absolute inset-0 rounded-[calc(1rem-0.375rem)]" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
