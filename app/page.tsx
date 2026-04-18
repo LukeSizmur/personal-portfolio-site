@@ -28,7 +28,7 @@ const PROJECTS: CardItem[] = [
     badgeText: "rgba(192,132,252,1)",
     badgeBg: "rgba(139,92,246,0.18)",
     writeup: {
-      summary: "ReadySteadySmile offers a variety of photobooths and TheSelfieRoamer™ at events across the UK and Europe. I built and maintain their full booking and marketing website which uses Make.com as a backend workflow. I setup a webhook which handles emails and calendar automation so the customer and client stay informed about the enquiry. I have also built a dashboard which helps keep their bookings in an organised and central place utilisaing GitHub actions to automtically update booking status from Future, Active and Past.",
+      summary: "ReadySteadySmile offers a variety of photobooths and TheSelfieRoamer™ at events across the UK and Europe. I built and maintain their full booking and marketing website which uses Make.com as a backend workflow. I setup a webhook which handles emails and calendar automation so the customer and client stay informed about the enquiry. I have also built a dashboard which helps keep their bookings in an organised and central place utilising GitHub actions to automtically update booking status from Future, Active and Past.",
       highlights: [
         "Customer booking flow with real-time availability, add-ons, and automated confirmation emails",
         "Ops dashboard for managing events",
