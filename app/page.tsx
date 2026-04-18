@@ -197,12 +197,6 @@ export default function Home() {
             A selection of product, dashboard, and client work that reflects how I approach frontend engineering: thoughtful UX, clean implementation, and a strong eye for presentation.
           </p>
         </div>
-          <a
-            href="#"
-            className="reveal inline-flex items-center gap-2 no-underline text-[13px] font-semibold text-muted border border-white/10 px-5 py-2.5 rounded-full transition-all duration-[400ms] flex-shrink-0 mb-2 hover:bg-white/[0.06] hover:text-oatmeal"
-          >
-            View all <ArrowUpRight size={14} />
-          </a>
         </div>
 
         <ProjectsOverscroll items={PROJECTS} />
