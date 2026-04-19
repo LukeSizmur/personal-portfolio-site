@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react"
 
 gsap.registerPlugin(ScrollToPlugin)
 
-const NAV_LINKS = ["home", "about", "work", "skills", "personal", "contact"] as const
+const NAV_LINKS = ["home", "about", "work", "skills", "personal", "elsewhere"] as const
 const SCROLL_THRESHOLD = 80
 
 export function HomeNav() {
@@ -29,6 +29,10 @@ export function HomeNav() {
     const findActive = () => {
       if (window.scrollY < 40) {
         setActiveSection("home")
+        return
+      }
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 50) {
+        setActiveSection(sectionIds[sectionIds.length - 1])
         return
       }
       const checkPoint = window.innerHeight * 0.35

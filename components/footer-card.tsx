@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react"
 import { gsap } from "gsap"
 import { FooterName } from "@/components/footer-name"
 
-const NAV_LINKS = ["about", "work", "skills", "personal", "contact"] as const
+const NAV_LINKS = ["about", "work", "skills", "personal", "elsewhere"] as const
 
 export function FooterCard() {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -80,11 +80,7 @@ export function FooterCard() {
           <FooterName ref={nameRef} />
 
           <div className="flex justify-between items-center pt-7 border-t border-[rgba(43,43,43,0.1)] relative z-10">
-            <span className="text-[12px] text-muted">© 2026 Luke Sizmur. All rights reserved.</span>
-            <div className="flex items-center gap-1.5 text-[12px] text-muted">
-              <span className="status-dot w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block"></span>
-              Open to opportunities
-            </div>
+            <span className="text-[12px] text-muted">© 2026 Luke Sizmur.</span>
           </div>
         </div>
       </div>

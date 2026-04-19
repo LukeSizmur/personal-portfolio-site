@@ -40,17 +40,7 @@ export function HeroSection() {
             { src: "/Ice-hockey.jpg", alt: "Ice Hockey Match" },
           ]}
         />
-        <a
-          href="#contact"
-          className="hero-cta inline-flex items-center gap-3 bg-black text-cream no-underline text-[14px] font-semibold tracking-[-0.01em] pl-6 pr-[14px] py-[14px] rounded-full transition-all duration-500 hover:bg-apex hover:scale-[1.02]"
-        >
-          Get in touch
-          <span className="hero-cta-icon w-8 h-8 rounded-full bg-white/[0.12] flex items-center justify-center transition-transform duration-500">
-            <ArrowUpRight size={14} />
-          </span>
-        </a>
       </div>
-
       <ScrollArrow />
     </section>
   );

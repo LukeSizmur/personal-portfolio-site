@@ -5,7 +5,7 @@ import { AboutSection } from "@/components/about-section";
 import { WorkSection } from "@/components/work-section";
 import { SkillsSection } from "@/components/skills-section";
 import { PersonalSection } from "@/components/personal-section";
-import { ContactSection } from "@/components/contact-section";
+import { ElsewhereSection } from "@/components/elsewhere-section";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
       <WorkSection />
       <SkillsSection />
       <PersonalSection />
-      <ContactSection />
+      <ElsewhereSection />
     </>
   );
 }
