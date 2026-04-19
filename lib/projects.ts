@@ -29,7 +29,7 @@ export const PROJECTS: CardItem[] = [
   {
     id: 2,
     title: "The Fleur Siobhan Podcast",
-    description: "A podcast platform and website for a lifestyle content creator",
+    description: "A podcast platform and website for Fleur Siobhan",
     image: "/thefleursiohanpodcast.vercel.app_.png",
     url: "https://thefleursiohanpodcast.vercel.app",
     badge: "Next.js",
@@ -43,7 +43,7 @@ export const PROJECTS: CardItem[] = [
     badgeText: "rgba(180,80,160,1)",
     badgeBg: "rgba(221,160,221,0.3)",
     writeup: {
-      summary: "Built and deployed a full podcast website for Fleur Siobhan — a lifestyle and wellness content creator. The site showcases episodes, links to streaming platforms, and gives Fleur a branded online home that matches her aesthetic.",
+      summary: "Built and deployed a full podcast website for Fleur Siobhan. The site showcases episodes, links to streaming platforms, and gives Fleur a branded online home that matches her aesthetic.",
       highlights: [
         "Clean, editorial layout designed to match the podcast's brand identity",
         "Episode listing with direct links to Spotify, Apple Podcasts, and YouTube",
