@@ -28,7 +28,7 @@ export function PersonalSection() {
           Get To<br />Know Me
         </h2>
         <p className="reveal reveal-delay-1 relative z-10 mt-6 max-w-[520px] text-[17px] leading-[1.75] tracking-[-0.01em] text-[#5a5650]">
-          A little more about the person behind the screen: the films, interests, and small obsessions that shape how I think, create, and spend my time outside of work.
+          A little more about me! I spend my spare time engaging in various things from films, gaming to my newsletter!
         </p>
       </div>
 
