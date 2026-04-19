@@ -133,6 +133,7 @@ export function PersonalSection() {
               {BOOKS.map((book) => (
                 <li key={book} className="flex items-center gap-3 text-[14px] text-[#5a5650] font-medium">
                   {book}
+                  {book === "Project Hail Mary" && <span className="text-[10px] font-semibold tracking-[0.08em] uppercase text-apex bg-[rgba(232,62,11,0.08)] border border-[rgba(232,62,11,0.2)] px-2 py-0.5 rounded-full">read</span>}
                 </li>
               ))}
             </ul>
