@@ -1,8 +1,8 @@
 const STATS = [
-  { num: "2–3", label: "Years professional exp." },
+  { num: "3+", label: "Years professional exp." },
   { num: "React", label: "Primary stack" },
   { num: "∞", label: "Details cared about" },
-  { num: "FS", label: "Going fullstack" },
+  { num: "Current Role", label: "Application Software Developer" },
 ];
 
 export function AboutSection() {
@@ -25,10 +25,13 @@ export function AboutSection() {
 
       <div className="flex flex-col gap-8">
         <p className="reveal reveal-delay-1 text-[17px] leading-[1.75] text-[#5a5650] tracking-[-0.01em]">
-          I&apos;m a frontend developer with 3+ years of professional experience building React-based dashboards and data visualisation applications. I have always loved digging deep into the details because I am a strong believer that <span className="text-apex">details matter</span>.
+          I&apos;m an <em>Application Software Developer</em> with 3+ years of professional experience building React-based dashboards and data visualisation applications.
+          I have always loved digging deep into the details because I am a strong believer that <span className="text-apex">details matter</span>.
         </p>
         <p className="reveal reveal-delay-2 text-[17px] leading-[1.75] text-[#5a5650] tracking-[-0.01em]">
-          Currently transitioning toward fullstack development, working with Elasticsearch, Node, and cloud-native tooling.
+          Currently at SOCAutomation, where I work on the frontend of their SaaS product — data visualisations, day-to-day interaction animations, and making sure our customers are always front and centre.
+        <br/>
+        <span className="text-apex underline"><a href="https://socautomation.com/" target="_blank">Learn more</a></span>
         </p>
         <div className="reveal reveal-delay-3 grid grid-cols-2 gap-px bg-smoke rounded-2xl overflow-hidden">
           {STATS.map(({ num, label }) => (
