@@ -2,7 +2,7 @@ const STATS = [
   { num: "3+", label: "Years professional exp." },
   { num: "React", label: "Primary stack" },
   { num: "∞", label: "Details cared about" },
-  { num: "Current Role", label: "Application Software Developer" },
+  { num: "Application Software Developer", label: "Current Role" },
 ];
 
 export function AboutSection() {
