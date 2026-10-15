@@ -216,19 +216,20 @@ export function HomeNav() {
       {/* Full-screen overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-50 flex flex-col justify-center"
-        style={{ display: "none", background: "#5a1624" }}
+        className="fixed inset-0 z-50 flex flex-col justify-center bg-apex"
+        style={{ display: "none" }}
       >
         <nav className="flex flex-col gap-1 px-12 pb-4">
           {NAV_LINKS.map((section, i) => (
             <a
               key={section}
               ref={(el) => { linkRefs.current[i] = el }}
+              aria-current={activeSection === section ? "location" : undefined}
               href={section === "home" ? "#" : `#${section}`}
               onClick={(e) => handleNavClick(e, section)}
-              style={{ opacity: 0 }}
-              className={`text-[clamp(2.5rem,6vw,4.5rem)] font-semibold tracking-tight no-underline leading-[1.1] transition-colors duration-200 ${
-                activeSection === section ? "text-[#fafafa]" : "text-[rgba(253,251,247,0.35)] hover:text-[#fafafa]"
+              style={{ opacity: 0, outlineColor: "var(--black)" }}
+              className={`text-[clamp(2.5rem,6vw,4.5rem)] font-semibold tracking-tight text-black decoration-2 underline-offset-8 leading-[1.1] hover:underline ${
+                activeSection === section ? "underline" : "no-underline"
               }`}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
