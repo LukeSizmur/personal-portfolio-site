@@ -8,14 +8,9 @@ export const PROJECTS: CardItem[] = [
     image: "/www.readysteadysmile.co.uk_.png",
     url: "https://www.readysteadysmile.co.uk",
     badge: "NextJS",
-    gradient: `
-      radial-gradient(ellipse at 25% 55%, rgba(139,92,246,0.75) 0%, rgba(139,92,246,0) 55%),
-      radial-gradient(ellipse at 80% 25%, rgba(192,132,252,0.55) 0%, rgba(192,132,252,0) 50%),
-      radial-gradient(ellipse at 60% 80%, rgba(109,40,217,0.4) 0%, rgba(109,40,217,0) 45%),
-      #0d0a1a
-    `,
-    badgeText: "rgba(192,132,252,1)",
-    badgeBg: "rgba(139,92,246,0.18)",
+    gradient: "#242424",
+    badgeText: "#fafafa",
+    badgeBg: "rgba(250,250,250,0.08)",
     writeup: {
       summary: "ReadySteadySmile offers a variety of photobooths and TheSelfieRoamer™ at events across the UK and Europe. I built and maintain their full booking and marketing website which uses Make.com as a backend workflow. I setup a webhook which handles emails and calendar automation so the customer and client stay informed about the enquiry. I have also built a dashboard which helps keep their bookings in an organised and central place utilising GitHub actions to automtically update booking status from Future, Active and Past.",
       highlights: [
@@ -33,15 +28,10 @@ export const PROJECTS: CardItem[] = [
     image: "/thefleursiohanpodcast.vercel.app_.png",
     url: "https://thefleursiohanpodcast.vercel.app",
     badge: "Next.js",
-    gradient: `
-      radial-gradient(ellipse at 20% 60%, rgba(255,182,193,0.55) 0%, rgba(255,182,193,0) 55%),
-      radial-gradient(ellipse at 78% 25%, rgba(221,160,221,0.45) 0%, rgba(221,160,221,0) 50%),
-      radial-gradient(ellipse at 55% 85%, rgba(255,218,185,0.4) 0%, rgba(255,218,185,0) 45%),
-      #fdf8f5
-    `,
-    light: true,
-    badgeText: "rgba(180,80,160,1)",
-    badgeBg: "rgba(221,160,221,0.3)",
+    gradient: "#5a1624",
+    light: false,
+    badgeText: "#fafafa",
+    badgeBg: "rgba(250,250,250,0.08)",
     writeup: {
       summary: "Built and deployed a full podcast website for Fleur Siobhan. The site showcases episodes, links to streaming platforms, and gives Fleur a branded online home that matches her aesthetic.",
       highlights: [
@@ -59,14 +49,9 @@ export const PROJECTS: CardItem[] = [
     description: "A photography business based in Chichester, England",
     image: "/brookrosephotography.png",
     badge: "Astro",
-    gradient: `
-      radial-gradient(ellipse at 20% 55%, rgba(170,145,80,0.7) 0%, rgba(170,145,80,0) 55%),
-      radial-gradient(ellipse at 78% 22%, rgba(90,110,50,0.6) 0%, rgba(90,110,50,0) 50%),
-      radial-gradient(ellipse at 55% 88%, rgba(150,105,55,0.55) 0%, rgba(150,105,55,0) 45%),
-      #514D38
-    `,
-    badgeText: "rgba(210,195,140,1)",
-    badgeBg: "rgba(170,145,80,0.2)",
+    gradient: "#242424",
+    badgeText: "#fafafa",
+    badgeBg: "rgba(250,250,250,0.08)",
     writeup: {
       summary: "Brook Rose Photography is a Chichester-based photography studio specialising in portraits, families, and special occasions. I designed and built their website to reflect the warmth and artistry behind their work — giving them a beautiful online home to showcase their portfolio and attract new clients.",
       highlights: [

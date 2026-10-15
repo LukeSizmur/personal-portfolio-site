@@ -98,7 +98,7 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
   if (isMobile === null) return <div className="min-h-screen bg-black" />
 
   const dark = "text-[var(--oatmeal)]"
-  const light = "text-[#2b2b2b]"
+  const light = "text-[#1b1b1b]"
 
   if (isMobile) {
     return (
@@ -109,12 +109,12 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
           return (
             <div
               key={item.id}
-              className="rounded-[24px] overflow-hidden p-6 flex flex-col gap-4"
+              className="rounded-[10px] overflow-hidden p-6 flex flex-col gap-4"
               style={{ background: item.gradient }}
             >
               {item.badge && (
                 <span
-                  className="self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em]"
+                  className="self-start rounded-md border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em]"
                   style={{ color: item.badgeText, borderColor: item.badgeBg, background: item.badgeBg }}
                 >
                   {item.badge}
@@ -131,22 +131,22 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
               />
               <div className="flex flex-col gap-2">
                 <h3 className={`text-[22px] font-bold tracking-tight ${txt}`}>{item.title}</h3>
-                <p className={`text-[14px] ${isLight ? "text-[#2b2b2b]/60" : "text-[var(--oatmeal)]/60"}`}>{item.description}</p>
+                <p className={`text-[14px] ${isLight ? "text-[#1b1b1b]/75" : "text-[var(--oatmeal)]/75"}`}>{item.description}</p>
               </div>
               {item.writeup && (
                 <div className={`flex flex-col gap-4 pt-2 border-t ${isLight ? "border-black/10" : "border-white/10"}`}>
-                  <p className={`text-[13px] leading-[1.7] ${isLight ? "text-[#2b2b2b]/60" : "text-[var(--oatmeal)]/60"}`}>{item.writeup.summary}</p>
+                  <p className={`text-[13px] leading-[1.7] ${isLight ? "text-[#1b1b1b]/75" : "text-[var(--oatmeal)]/75"}`}>{item.writeup.summary}</p>
                   <ul className="flex flex-col gap-2">
                     {item.writeup.highlights.map((h, hi) => (
                       <li key={hi} className="flex items-start gap-2">
                         <div className="w-1 h-1 rounded-full bg-[var(--apex)] mt-[8px] flex-shrink-0" />
-                        <span className={`text-[13px] leading-[1.6] ${isLight ? "text-[#2b2b2b]/55" : "text-[var(--oatmeal)]/55"}`}>{h}</span>
+                        <span className={`text-[13px] leading-[1.6] ${isLight ? "text-[#1b1b1b]/75" : "text-[var(--oatmeal)]/75"}`}>{h}</span>
                       </li>
                     ))}
                   </ul>
                   <div className="flex flex-wrap gap-2">
                     {item.writeup.tech.map((t) => (
-                      <span key={t} className={`rounded-full border px-2.5 py-0.5 text-[10px] ${isLight ? "border-black/10 bg-black/5 text-[#2b2b2b]/50" : "border-white/10 bg-white/5 text-[var(--oatmeal)]/50"}`}>
+                      <span key={t} className={`rounded-md border px-2.5 py-0.5 text-[10px] ${isLight ? "border-black/10 bg-black/5 text-[#1b1b1b]/75" : "border-white/10 bg-white/5 text-[var(--oatmeal)]/75"}`}>
                         {t}
                       </span>
                     ))}
@@ -156,7 +156,7 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`self-start flex items-center gap-1.5 rounded-full no-underline px-5 py-2.5 text-[13px] font-semibold transition-colors ${isLight ? "bg-[#2b2b2b] text-[var(--oatmeal)] hover:bg-[var(--apex)] hover:text-[var(--cream)]" : "bg-[var(--oatmeal)] text-black hover:bg-[var(--apex)] hover:text-[var(--cream)]"}`}
+                      className={`self-start flex items-center gap-1.5 rounded-md no-underline px-5 py-2.5 text-[13px] font-semibold transition-colors ${isLight ? "bg-[#1b1b1b] text-[var(--oatmeal)] hover:bg-[var(--apex)] hover:text-oatmeal" : "bg-apex text-black hover:bg-[var(--apex)] hover:text-oatmeal"}`}
                     >
                       Visit <ChevronRight className="size-3.5" strokeWidth={2.5} />
                     </a>
@@ -188,17 +188,17 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                 <div className="flex flex-col gap-6">
                   {item.badge && (
                     <span
-                      className="self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em]"
+                      className="self-start rounded-md border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em]"
                       style={{ color: item.badgeText, borderColor: item.badgeBg, background: item.badgeBg }}
                     >
                       {item.badge}
                     </span>
                   )}
                   <div className="flex flex-col gap-3">
-                    <h3 className={`text-[clamp(28px,3.5vw,56px)] font-bold tracking-[-0.03em] leading-[1.1] ${isLight ? "text-[#2b2b2b]" : "text-[var(--oatmeal)]"}`}>
+                    <h3 className={`text-[clamp(28px,3.5vw,56px)] font-bold tracking-[-0.03em] leading-[1.1] ${isLight ? "text-[#1b1b1b]" : "text-[var(--oatmeal)]"}`}>
                       {item.title}
                     </h3>
-                    <p className={`text-[15px] leading-[1.6] max-w-[400px] ${isLight ? "text-[#2b2b2b]/60" : "text-[var(--oatmeal)]/60"}`}>
+                    <p className={`text-[15px] leading-[1.6] max-w-[400px] ${isLight ? "text-[#1b1b1b]/75" : "text-[var(--oatmeal)]/75"}`}>
                       {item.description}
                     </p>
                   </div>
@@ -207,18 +207,18 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                 {hasWriteup && item.writeup ? (
                   <div className="flex flex-col gap-8 mt-10">
                     <div className={`border-t ${isLight ? "border-black/10" : "border-white/10"}`} />
-                    <p className={`text-[16px] leading-[1.8] ${isLight ? "text-[#2b2b2b]/70" : "text-[var(--oatmeal)]/70"}`}>
+                    <p className={`text-[16px] leading-[1.8] ${isLight ? "text-[#1b1b1b]/70" : "text-[var(--oatmeal)]/70"}`}>
                       {item.writeup.summary}
                     </p>
                     <div className="flex flex-col gap-3">
-                      <span className={`text-[10px] uppercase tracking-[0.14em] font-semibold ${isLight ? "text-[#2b2b2b]/35" : "text-[var(--oatmeal)]/35"}`}>
+                      <span className={`text-[10px] uppercase tracking-[0.14em] font-semibold ${isLight ? "text-[#1b1b1b]/65" : "text-[var(--oatmeal)]/65"}`}>
                         What I built
                       </span>
                       <ul className="flex flex-col gap-2.5">
                         {item.writeup.highlights.map((h, hi) => (
                           <li key={hi} className="flex items-start gap-3">
                             <div className="w-1 h-1 rounded-full bg-[var(--apex)] mt-[9px] flex-shrink-0" />
-                            <span className={`text-[14px] leading-[1.65] ${isLight ? "text-[#2b2b2b]/65" : "text-[var(--oatmeal)]/65"}`}>{h}</span>
+                            <span className={`text-[14px] leading-[1.65] ${isLight ? "text-[#1b1b1b]/65" : "text-[var(--oatmeal)]/65"}`}>{h}</span>
                           </li>
                         ))}
                       </ul>
@@ -226,7 +226,7 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                     <div className="flex items-center justify-between gap-4 flex-wrap pb-[60px]">
                       <div className="flex flex-wrap gap-2">
                         {item.writeup.tech.map((t) => (
-                          <span key={t} className={`rounded-full border px-3 py-1 text-[11px] font-medium ${isLight ? "border-black/10 bg-black/5 text-[#2b2b2b]/50" : "border-white/10 bg-white/5 text-[var(--oatmeal)]/50"}`}>
+                          <span key={t} className={`rounded-md border px-3 py-1 text-[11px] font-medium ${isLight ? "border-black/10 bg-black/5 text-[#1b1b1b]/75" : "border-white/10 bg-white/5 text-[var(--oatmeal)]/75"}`}>
                             {t}
                           </span>
                         ))}
@@ -236,7 +236,7 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                           href={item.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex-shrink-0 flex items-center gap-1.5 rounded-full no-underline px-6 py-3 text-[14px] font-semibold transition-colors ${isLight ? "bg-[#2b2b2b] text-[var(--oatmeal)] hover:bg-[var(--apex)] hover:text-[var(--cream)]" : "bg-[var(--oatmeal)] text-black hover:bg-[var(--apex)] hover:text-[var(--cream)]"}`}
+                          className={`flex-shrink-0 flex items-center gap-1.5 rounded-md no-underline px-6 py-3 text-[14px] font-semibold transition-colors ${isLight ? "bg-[#1b1b1b] text-[var(--oatmeal)] hover:bg-[var(--apex)] hover:text-oatmeal" : "bg-apex text-black hover:bg-[var(--apex)] hover:text-oatmeal"}`}
                         >
                           Visit <ChevronRight className="size-4" strokeWidth={2.5} />
                         </a>
@@ -250,7 +250,7 @@ export default function ProjectsOverscroll({ items = [], className }: ProjectsOv
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-1.5 rounded-full no-underline px-6 py-3 text-[14px] font-semibold transition-colors ${isLight ? "bg-[#2b2b2b] text-[var(--oatmeal)] hover:bg-[var(--apex)] hover:text-[var(--cream)]" : "bg-[var(--oatmeal)] text-black hover:bg-[var(--apex)] hover:text-[var(--cream)]"}`}
+                        className={`inline-flex items-center gap-1.5 rounded-md no-underline px-6 py-3 text-[14px] font-semibold transition-colors ${isLight ? "bg-[#1b1b1b] text-[var(--oatmeal)] hover:bg-[var(--apex)] hover:text-oatmeal" : "bg-apex text-black hover:bg-[var(--apex)] hover:text-oatmeal"}`}
                       >
                         Visit <ChevronRight className="size-4" strokeWidth={2.5} />
                       </a>

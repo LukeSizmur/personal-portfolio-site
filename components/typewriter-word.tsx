@@ -23,8 +23,8 @@ export function TypewriterWord() {
 
     if (phase === "deleting") {
       if (text.length === 0) {
-        setPhase("deleted");
-        return;
+        const t = setTimeout(() => setPhase("deleted"), 0);
+        return () => clearTimeout(t);
       }
       const t = setTimeout(() => setText((s) => s.slice(0, -1)), DELETE_MS);
       return () => clearTimeout(t);
@@ -41,8 +41,8 @@ export function TypewriterWord() {
     if (phase === "typing") {
       const target = WORDS[wordIndex];
       if (text === target) {
-        setPhase("typed");
-        return;
+        const t = setTimeout(() => setPhase("typed"), 0);
+        return () => clearTimeout(t);
       }
       const t = setTimeout(
         () => setText(target.slice(0, text.length + 1)),

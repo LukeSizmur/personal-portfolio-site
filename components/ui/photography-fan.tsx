@@ -11,15 +11,21 @@ const PHOTOS = [
   { src: "/London_photography.JPEG", alt: "Picture of Westminster Cathedral" },
 ]
 
-// Resting (fanned) positions relative to stack centre
+// Fully expanded positions relative to stack centre
 const FAN_TARGETS = [
   { x: -72, rotation: -18 },
   { x: 0,   rotation: 0   },
   { x: 72,  rotation: 18  },
 ]
 
-// How far below the card bottom the photos start (hidden by overflow-hidden)
-const HIDDEN_Y = 220
+const RESTING_TARGETS = [
+  { x: -28, rotation: -8 },
+  { x: 0,   rotation: 0 },
+  { x: 28,  rotation: 8 },
+]
+
+// Leave roughly 24px of the scaled photo stack visible as a hover cue.
+const RESTING_Y = 126
 
 export default function PhotographyFan() {
   const cardRef   = useRef<HTMLDivElement>(null)
@@ -52,15 +58,15 @@ export default function PhotographyFan() {
   useEffect(() => {
     const els = photoRefs.current
 
-    // Hidden state: stacked, pushed below the card edge
-    els.forEach((el) => {
+    // Resting state: gently fanned, peeking above the card edge
+    els.forEach((el, i) => {
       if (el)
         gsap.set(el, {
-          x: 0,
-          y: HIDDEN_Y,
-          rotation: 0,
+          x: RESTING_TARGETS[i].x,
+          y: RESTING_Y,
+          rotation: RESTING_TARGETS[i].rotation,
           scale: 0.88,
-          opacity: 0,
+          opacity: 1,
           transformOrigin: "bottom center",
         })
     })
@@ -78,24 +84,6 @@ export default function PhotographyFan() {
           rotation: FAN_TARGETS[i].rotation,
           scale: 1,
           opacity: 1,
-          duration: 0.6,
-          ease: "power2.inOut",
-          delay: i * 0.04,
-          overwrite: true,
-        })
-      })
-    }
-
-    const collapse = () => {
-      isFannedRef.current = false
-      els.slice().reverse().forEach((el, i) => {
-        if (!el) return
-        gsap.to(el, {
-          x: 0,
-          y: HIDDEN_Y,
-          rotation: 0,
-          scale: 0.88,
-          opacity: 0,
           duration: 0.45,
           ease: "power2.inOut",
           delay: i * 0.03,
@@ -104,8 +92,26 @@ export default function PhotographyFan() {
       })
     }
 
+    const collapse = () => {
+      isFannedRef.current = false
+      els.forEach((el, i) => {
+        if (!el) return
+        gsap.to(el, {
+          x: RESTING_TARGETS[i].x,
+          y: RESTING_Y,
+          rotation: RESTING_TARGETS[i].rotation,
+          scale: 0.88,
+          opacity: 1,
+          duration: 0.35,
+          ease: "power2.inOut",
+          delay: (els.length - 1 - i) * 0.02,
+          overwrite: true,
+        })
+      })
+    }
+
     // Per-photo hover lift
-    els.forEach((el, i) => {
+    els.forEach((el) => {
       if (!el) return
       el.addEventListener("mouseenter", () => {
         if (!isFannedRef.current) return
@@ -128,14 +134,14 @@ export default function PhotographyFan() {
   return (
     <div
       ref={cardRef}
-      className="reveal reveal-delay-2 col-span-2 rounded-[20px] bg-smoke border border-smoke p-0.5 card-hover-light max-md:col-span-1"
+      className="reveal reveal-delay-2 col-span-2 rounded-[10px] bg-smoke border border-smoke p-0.5 card-hover-light max-md:col-span-1"
     >
       {/* overflow-hidden clips the photos while they sit below the card edge */}
-      <div className="rounded-[18px] bg-cream shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] p-9 h-full relative overflow-hidden">
+      <div className="rounded-[8px] bg-cream  p-9 h-full relative overflow-hidden">
         <div className="personal-eyebrow flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-apex mb-5">
           Photography
         </div>
-        <div className="text-[26px] font-bold tracking-[-0.03em] text-black mb-3 leading-[1.15]">
+        <div className="text-[26px] font-bold tracking-[-0.03em] text-oatmeal mb-3 leading-[1.15]">
           Life through my lense
         </div>
         <div className="text-[14px] leading-[1.7] text-muted">
@@ -165,6 +171,8 @@ export default function PhotographyFan() {
                 boxShadow: "0 10px 32px rgba(43,43,43,0.20), 0 2px 8px rgba(43,43,43,0.10)",
                 border: "1.5px solid rgba(255,255,255,0.75)",
                 willChange: "transform, opacity",
+                transform: `translate(${RESTING_TARGETS[i].x}px, ${RESTING_Y}px) rotate(${RESTING_TARGETS[i].rotation}deg) scale(0.88)`,
+                transformOrigin: "bottom center",
               }}
             >
               <Image

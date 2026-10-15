@@ -161,7 +161,8 @@ export function HomeNav() {
   }, [showBurger])
 
   function handleBurgerClick() {
-    isOpen.current ? closeMenu() : openMenu()
+    if (isOpen.current) closeMenu()
+    else openMenu()
   }
 
   function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, section: string) {
@@ -181,17 +182,18 @@ export function HomeNav() {
       <nav
         ref={pillRef}
         style={{ opacity: 0 }}
-        className="fixed top-6 z-50 flex items-center gap-0.5 whitespace-nowrap rounded-full border border-[rgba(43,43,43,0.08)] bg-[rgba(253,251,247,0.85)] px-2 py-1.5 backdrop-blur-xl"
+        className="fixed top-6 z-50 flex items-center gap-0.5 whitespace-nowrap rounded-md border border-[rgba(255,255,255,0.14)] bg-[rgba(27,27,27,0.94)] px-2 py-1.5 backdrop-blur-xl"
       >
         {NAV_LINKS.map((section) => (
           <a
             key={section}
+            aria-current={activeSection === section ? "location" : undefined}
             href={section === "home" ? "#" : `#${section}`}
             onClick={(e) => handleNavClick(e, section)}
-            className={`rounded-full px-4 py-[7px] text-[13px] font-medium tracking-[-0.01em] no-underline transition-all duration-[400ms] ${
+            className={`rounded-md px-4 py-[7px] text-[13px] font-medium tracking-[-0.01em] no-underline transition-all duration-[400ms] ${
               activeSection === section
-                ? "bg-[#2b2b2b] text-[#fdfbf7]"
-                : "text-muted hover:bg-[#2b2b2b] hover:text-[#fdfbf7]"
+                ? "bg-apex text-black"
+                : "text-muted hover:bg-[#1b1b1b] hover:text-[#fafafa]"
             }`}
           >
             {section.charAt(0).toUpperCase() + section.slice(1)}
@@ -204,8 +206,9 @@ export function HomeNav() {
         ref={burgerRef}
         onClick={handleBurgerClick}
         style={{ opacity: 0 }}
-        className="fixed top-6 right-6 z-[60] flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[rgba(43,43,43,0.08)] bg-[rgba(253,251,247,0.85)] text-[#2b2b2b] backdrop-blur-xl transition-colors duration-200"
+        className="fixed top-6 right-6 z-[60] flex h-11 w-11 cursor-pointer items-center justify-center rounded-md border border-[rgba(255,255,255,0.14)] bg-[rgba(27,27,27,0.94)] text-oatmeal backdrop-blur-xl transition-colors duration-200"
         aria-label="Toggle navigation"
+        aria-expanded={menuOpen}
       >
         {menuOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
@@ -214,7 +217,7 @@ export function HomeNav() {
       <div
         ref={overlayRef}
         className="fixed inset-0 z-50 flex flex-col justify-center"
-        style={{ display: "none", background: "#2b2b2b" }}
+        style={{ display: "none", background: "#5a1624" }}
       >
         <nav className="flex flex-col gap-1 px-12 pb-4">
           {NAV_LINKS.map((section, i) => (
@@ -225,7 +228,7 @@ export function HomeNav() {
               onClick={(e) => handleNavClick(e, section)}
               style={{ opacity: 0 }}
               className={`text-[clamp(2.5rem,6vw,4.5rem)] font-semibold tracking-tight no-underline leading-[1.1] transition-colors duration-200 ${
-                activeSection === section ? "text-[#fdfbf7]" : "text-[rgba(253,251,247,0.35)] hover:text-[#fdfbf7]"
+                activeSection === section ? "text-[#fafafa]" : "text-[rgba(253,251,247,0.35)] hover:text-[#fafafa]"
               }`}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}

@@ -18,14 +18,14 @@ interface CardCollageProps {
 
 const DEFAULT_CARDS: [CollageCardData, CollageCardData, CollageCardData] = [
   { bg: "linear-gradient(145deg, #e8e4dd 0%, #d4d0cb 100%)" },
-  { bg: "linear-gradient(145deg, #fdfbf7 0%, #ece8e1 100%)" },
+  { bg: "linear-gradient(145deg, #fafafa 0%, #ece8e1 100%)" },
   { bg: "linear-gradient(145deg, #f5f2ee 0%, #ddd9d2 100%)" },
 ]
 
 const CARD_CONFIGS = [
-  { style: { left: 0, top: 44, width: 172, height: 246 },              rotation: -5, depth: 0.022, zIndex: 1 },
-  { style: { left: 144, top: 0, width: 172, height: 260 },             rotation: 6,  depth: 0.038, zIndex: 2 },
-  { style: { left: "50%", bottom: 0, marginLeft: -78, width: 156, height: 156 }, rotation: 2,  depth: 0.012, zIndex: 3 },
+  { style: { left: 0, top: "10.48%", width: "50.59%", height: "58.57%" },              rotation: -5, depth: 0.022, zIndex: 1 },
+  { style: { left: "42.35%", top: 0, width: "50.59%", height: "61.9%" },             rotation: 6,  depth: 0.038, zIndex: 2 },
+  { style: { left: "27.06%", bottom: 0, width: "45.88%", height: "37.14%" }, rotation: 2,  depth: 0.012, zIndex: 3 },
 ]
 
 export default function CardCollage({ cards = DEFAULT_CARDS, label, className = "" }: CardCollageProps) {
@@ -76,8 +76,7 @@ export default function CardCollage({ cards = DEFAULT_CARDS, label, className = 
       ref={containerRef}
       onMouseEnter={() => { isHovering.current = true }}
       onMouseLeave={() => { isHovering.current = false; resetRef.current?.() }}
-      className={`relative select-none ${className}`}
-      style={{ width: 340, height: 420 }}
+      className={`hero-collage relative select-none ${className}`}
     >
       {CARD_CONFIGS.map(({ style, zIndex }, i) => {
         const card = cards[i]
@@ -85,13 +84,13 @@ export default function CardCollage({ cards = DEFAULT_CARDS, label, className = 
           <div
             key={i}
             ref={(el) => { cardRefs.current[i] = el }}
-            className="absolute rounded-[18px] overflow-hidden"
+            className="absolute rounded-[8px] overflow-hidden"
             style={{
               ...style,
               zIndex,
               willChange: "transform",
               boxShadow: "0 6px 24px rgba(43,43,43,0.10), 0 2px 8px rgba(43,43,43,0.07)",
-              border: "1px solid rgba(43,43,43,0.08)",
+              border: "1px solid rgba(255,255,255,0.14)",
               background: card.bg ?? "var(--smoke)",
             }}
           >
@@ -100,6 +99,7 @@ export default function CardCollage({ cards = DEFAULT_CARDS, label, className = 
                 src={card.src}
                 alt={card.alt ?? ""}
                 fill
+                sizes="(max-width: 767px) 50vw, (max-width: 1315px) 20vw, 253px"
                 className="object-cover"
                 draggable={false}
               />

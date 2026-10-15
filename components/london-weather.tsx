@@ -184,10 +184,10 @@ export async function LondonWeather() {
         Live
       </span>
       <span className="w-px h-3.5 bg-smoke shrink-0" />
-      <span className="text-[#5a5650] shrink-0">
+      <span className="text-muted shrink-0">
         <WeatherIcon code={weather.weatherCode} />
       </span>
-      <span className="font-bold text-black text-[14px] tracking-[-0.02em] shrink-0">{weather.temperature}°C</span>
+      <span className="font-bold text-oatmeal text-[14px] tracking-[-0.02em] shrink-0">{weather.temperature}°C</span>
       <span className="w-px h-3.5 bg-smoke shrink-0" />
       <span className="text-[12px] text-muted">London · {weather.description}</span>
     </div>

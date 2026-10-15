@@ -18,7 +18,7 @@ const TechStack = () => {
           <StackIcon
             name={techName}
             variant={hoveredIcon === techName ? undefined : 'grayscale'}
-            className="hero-tech-icon"
+            className={`hero-tech-icon ${techName === "github" ? "hero-tech-icon-github" : ""}`}
             style={{
               width: 30,
               height: 30,

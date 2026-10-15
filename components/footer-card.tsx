@@ -65,22 +65,22 @@ export function FooterCard() {
       <div ref={wrapperRef}>
         <div
           ref={cardRef}
-          className="bg-oatmeal rounded-[28px] px-[60px] pt-14 pb-12 overflow-hidden relative max-md:px-6 max-md:pt-10 max-md:pb-8 max-md:rounded-[20px]"
+          className="brand-footer bg-white rounded-[10px] px-[60px] pt-14 pb-12 overflow-hidden relative max-md:px-6 max-md:pt-10 max-md:pb-8 max-md:rounded-[10px]"
         >
           <div className="flex justify-between items-start mb-[60px] relative z-10">
             <div>
               <div className="text-[18px] font-bold tracking-[-0.02em] text-black">
-                Luke<span className="text-apex">.</span>
+                Luke<span className="text-black">.</span>
               </div>
-              <div className="text-[13px] text-muted mt-1">Developer — England</div>
+              <div className="text-[13px] text-black mt-1">Developer — England</div>
             </div>
           </div>
 
           {/* FooterName translates in x/y within the perspective-tilted card */}
           <FooterName ref={nameRef} />
 
-          <div className="flex justify-between items-center pt-7 border-t border-[rgba(43,43,43,0.1)] relative z-10">
-            <span className="text-[12px] text-muted">© 2026 Luke Sizmur.</span>
+          <div className="flex justify-between items-center pt-7 border-t border-black/15 relative z-10">
+            <span className="text-[12px] text-black">© 2026 Luke Sizmur.</span>
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@ export function FooterCard() {
           <a
             key={s}
             href={`#${s}`}
-            className="no-underline text-[13px] font-medium text-oatmeal/40 transition-colors duration-300 hover:text-oatmeal/80"
+            className="no-underline text-[13px] font-medium text-oatmeal/65 transition-colors duration-300 hover:text-oatmeal"
           >
             {s.charAt(0).toUpperCase() + s.slice(1)}
           </a>
