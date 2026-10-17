@@ -35,7 +35,7 @@ const TechStack = () => {
               background: 'var(--black)',
               color: 'var(--cream)',
               fontSize: '11px',
-              fontWeight: 600,
+              fontWeight: 800,
               letterSpacing: '0.03em',
               whiteSpace: 'nowrap',
               padding: '4px 8px',

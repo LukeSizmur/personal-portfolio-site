@@ -95,7 +95,7 @@ export function PersonalSection() {
                   <path d="M 1 1 L 6 4 L 1 7" stroke="#8a8580" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                 </marker>
               </defs>
-              <text x="4" y="62" fontSize="10.5" fontStyle="italic" fontWeight="500" fill="#8a8580" transform="rotate(10, 4, 22)">
+              <text x="4" y="62" fontSize="10.5" fontStyle="italic" fontWeight="800" fill="#8a8580" transform="rotate(10, 4, 22)">
                 Click Me!
               </text>
               <path

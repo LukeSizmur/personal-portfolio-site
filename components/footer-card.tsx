@@ -60,7 +60,7 @@ export function FooterCard() {
   }, [])
 
   return (
-    <div>
+    <div className="footer-shell">
       {/* wrapper owns the perspective — card is its immediate child */}
       <div ref={wrapperRef}>
         <div
@@ -69,10 +69,10 @@ export function FooterCard() {
         >
           <div className="flex justify-between items-start mb-[60px] relative z-10">
             <div>
-              <div className="text-[18px] font-bold tracking-[-0.02em] text-black">
-                Luke<span className="text-black">.</span>
+              <div className="text-[18px] font-bold tracking-[-0.02em] text-[#0A0A09]">
+                Luke<span className="text-apex">.</span>
               </div>
-              <div className="text-[13px] text-black mt-1">Developer — England</div>
+              <div className="text-[13px] text-neutral-600 mt-1">Developer — England</div>
             </div>
           </div>
 
@@ -80,7 +80,7 @@ export function FooterCard() {
           <FooterName ref={nameRef} />
 
           <div className="flex justify-between items-center pt-7 border-t border-black/15 relative z-10">
-            <span className="text-[12px] text-black">© 2026 Luke Sizmur.</span>
+            <span className="text-[12px] text-neutral-600">© 2026 Luke Sizmur.</span>
           </div>
         </div>
       </div>

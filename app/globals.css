@@ -8,7 +8,13 @@
   --color-amber: #5a1624;
   --color-cream: #242424;
   --color-muted: #b5b5b5;
-  --font-sans: var(--font-geist-sans), Arial, sans-serif;
+  --font-weight-normal: 800;
+  --font-weight-medium: 800;
+  --font-weight-semibold: 800;
+  --font-weight-bold: 800;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 800;
+  --font-sans: var(--font-montserrat), Arial, sans-serif;
 }
 
 :root {
@@ -29,7 +35,9 @@ body {
   overflow-x: hidden;
   background-color: var(--black);
   color: var(--oatmeal);
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-montserrat), Arial, sans-serif;
+  font-weight: 800;
+  font-synthesis: none;
 }
 
 /* Grain texture overlay */
@@ -196,7 +204,7 @@ body::before {
 /* ── 04 Capabilities — tag pills ── */
 .capability-tag {
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 0.03em;
   padding: 0.35rem 0.75rem;
   background-color: #242424;
@@ -285,14 +293,14 @@ a:focus-visible, button:focus-visible {
 }
 button:active, .btn-primary:active { transform: translateY(1px); }
 section { scroll-margin-top: 90px; }
-h1, h2 { font-weight: 900; text-transform: uppercase; letter-spacing: -0.055em; }
+h1, h2 { font-weight: 800; text-transform: uppercase; letter-spacing: -0.055em; }
 h2 { line-height: 0.98; text-wrap: balance; }
 h3 { font-weight: 800; letter-spacing: -0.04em; }
 p { text-wrap: pretty; }
 #about, #skills, #personal { border-top: 1px solid #383838; }
 #about, #skills, #personal, #hero { max-width: 1600px; width: 100%; margin-inline: auto; }
 #about h2, #skills h2, #personal h2, #work h2 { font-size: clamp(24px, 7vw, 72px); }
-#skills .capability-tag { color: #d1d1d1; font-weight: 400; }
+#skills .capability-tag { color: #d1d1d1; font-weight: 800; }
 #skills .capability-tag:hover { color: #1b1b1b; }
 #skills .grid > div > div:first-child { color: var(--apex); }
 #personal .card-hover-light { padding: 0; }
@@ -311,8 +319,56 @@ p { text-wrap: pretty; }
 #work a, #elsewhere .btn-primary { border-radius: 6px; }
 #work a:hover { background: var(--apex); color: #1b1b1b; }
 #elsewhere h2 { max-width: 1000px; margin-inline: auto; }
-.brand-footer { border-radius: 8px; }
-.brand-footer > div:last-child { margin-top: 36px; }
+.footer-shell { width: 100%; margin-inline: auto; }
+.brand-footer > div:first-child { margin-bottom: 0.5rem; }
+.brand-footer > div:last-child { margin-top: 0.75rem; padding-top: 0.75rem; }
+
+/* Center the footer logo independently of the card width. */
+.footer-wordmark {
+  container-type: inline-size;
+  width: 100%;
+  padding-block: 0.25rem 0.5rem;
+}
+.footer-wordmark img {
+  width: 90%;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+.footer-wordmark-type {
+  width: max-content;
+  margin-inline: auto;
+  color: var(--oatmeal);
+  font-size: clamp(0.875rem, min(5vw, 10svh), 5rem);
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  line-height: 0.70;
+}
+.footer-wordmark-first {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  margin-left: 0.34em;
+  padding-bottom: 0.015em;
+  text-shadow: -0.012em 0.028em 0.025em #101010;
+}
+.footer-wordmark-dot {
+  display: inline-block;
+  flex: 0 0 0.235em;
+  width: 0.235em;
+  height: 0.235em;
+  margin-left: 0.09em;
+  border-radius: 50%;
+  background: var(--apex);
+}
+.footer-wordmark-last {
+  position: relative;
+  display: block;
+}
+/* Keep the newsletter row within view above the footer at the page bottom. */
+@media (min-width: 768px) {
+  #elsewhere { padding-bottom: clamp(1rem, 4svh, 2.5rem); }
+}
 @media (min-width: 768px) and (max-width: 1100px) {
   .brand-hero { gap: 12px; padding-inline: 32px; }
 }
@@ -343,7 +399,7 @@ p { text-wrap: pretty; }
   margin: 0;
   color: rgb(250 250 250 / 7%);
   font-size: var(--backdrop-size);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
   letter-spacing: -0.055em;
   text-transform: uppercase;

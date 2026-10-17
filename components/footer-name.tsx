@@ -1,14 +1,23 @@
 "use client"
 
+import Image from "next/image"
 import { forwardRef } from "react"
 
 export const FooterName = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}
-      className="relative z-0 select-none whitespace-nowrap text-[clamp(1rem,13vw,260px)] font-black uppercase leading-[0.85] tracking-[-0.05em] text-black"
+      className="footer-wordmark relative z-0 select-none"
     >
-      Luke Sizmur
+      <Image
+        src="/high-res-logo-white.png"
+        alt="Luke Sizmur."
+        width={1774}
+        height={887}
+        sizes="(max-width: 767px) 90vw, 80vw"
+        className="block h-auto w-full"
+        draggable={false}
+      />
     </div>
   )
 })

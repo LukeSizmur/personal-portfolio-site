@@ -11,13 +11,13 @@ export function AboutSection() {
         </h2>
 
         <p className="reveal reveal-delay-1 relative z-10 mt-6 max-w-[520px] text-[17px] leading-[1.75] text-muted tracking-[-0.01em]">
-          I&apos;m an <em>Application Software Developer</em> with 3+ years of professional experience building React-based dashboards and data visualisation applications.
+          I&apos;m an <em>Full Stack Engineer</em> with 3+ years of professional experience building React-based dashboards and data visualisation applications.
           I have always loved digging deep into the details because I am a strong believer that <span className="text-apex">details matter</span>.
         </p>
         <p className="reveal reveal-delay-2 relative z-10 mt-6 max-w-[520px] text-[17px] leading-[1.75] text-muted tracking-[-0.01em]">
-          Currently at SOCAutomation, where I work on the frontend of their SaaS product — data visualisations, day-to-day interaction animations, and making sure our customers are always front and centre.
+          Currently at MyNewTerm, where I work on their job recruitment product — day-to-day interaction animations, and making sure our customers are always front and centre.
         <br/>
-        <span className="text-apex underline"><a href="https://socautomation.com/" target="_blank">Learn more</a></span>
+        <span className="text-apex underline"><a href="https://mynewterm.com/" target="_blank">Learn more</a></span>
         </p>
       </div>
     </section>
