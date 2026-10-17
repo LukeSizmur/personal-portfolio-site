@@ -4,7 +4,7 @@
   --color-black: #1b1b1b;
   --color-oatmeal: #fafafa;
   --color-smoke: #383838;
-  --color-apex: #f6422b;
+  --color-apex: #FE7021;
   --color-amber: #5a1624;
   --color-cream: #242424;
   --color-muted: #b5b5b5;
@@ -15,7 +15,7 @@
   --black: #1b1b1b;
   --oatmeal: #fafafa;
   --smoke: #383838;
-  --apex: #f6422b;
+  --apex: var(--color-apex);
   --amber: #5a1624;
   --cream: #242424;
   --muted: #b5b5b5;
@@ -277,10 +277,10 @@ body::before {
 }
 
 html { color-scheme: dark; }
-::selection { background: #f6422b; color: #1b1b1b; }
+::selection { background: var(--apex); color: #1b1b1b; }
 a, button { -webkit-tap-highlight-color: transparent; }
 a:focus-visible, button:focus-visible {
-  outline: 2px solid #f6422b;
+  outline: 2px solid var(--apex);
   outline-offset: 5px;
 }
 button:active, .btn-primary:active { transform: translateY(1px); }
@@ -294,9 +294,9 @@ p { text-wrap: pretty; }
 #about h2, #skills h2, #personal h2, #work h2 { font-size: clamp(24px, 7vw, 72px); }
 #skills .capability-tag { color: #d1d1d1; font-weight: 400; }
 #skills .capability-tag:hover { color: #1b1b1b; }
-#skills .grid > div > div:first-child { color: #f6422b; }
+#skills .grid > div > div:first-child { color: var(--apex); }
 #personal .card-hover-light { padding: 0; }
-#personal .card-hover-light:hover { transform: translateY(-4px); box-shadow: none; border-color: #f6422b; }
+#personal .card-hover-light:hover { transform: translateY(-4px); box-shadow: none; border-color: var(--apex); }
 #personal .card-hover-light > div { background: #202020; }
 #personal .card-hover-light > div > div:nth-child(2) { font-weight: 800; }
 .brand-hero { align-items: center; }
@@ -309,7 +309,7 @@ p { text-wrap: pretty; }
 .overscroll-panel { border-top: 1px solid #494949; }
 .overscroll-panel h3 { overflow-wrap: anywhere; }
 #work a, #elsewhere .btn-primary { border-radius: 6px; }
-#work a:hover { background: #f6422b; color: #1b1b1b; }
+#work a:hover { background: var(--apex); color: #1b1b1b; }
 #elsewhere h2 { max-width: 1000px; margin-inline: auto; }
 .brand-footer { border-radius: 8px; }
 .brand-footer > div:last-child { margin-top: 36px; }

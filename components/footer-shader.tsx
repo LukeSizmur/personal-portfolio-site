@@ -14,7 +14,7 @@ export function FooterShader() {
       shape="wave"
       type="8x8"
       colorBack="#5a1624"
-      colorFront="#f6422b"
+      colorFront="#FE7021"
       pxSize={3}
       speed={0.6}
       style={{ position: "absolute", inset: 0 }}

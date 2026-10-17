@@ -58,7 +58,7 @@ export function PersonalSection() {
               {FILMS.map((film) => (
                 <span
                   key={film}
-                  className="inline-flex items-center text-[12px] font-semibold px-3 py-1.5 rounded-md bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.14)] text-muted transition-all duration-[400ms] hover:bg-[rgba(246,66,43,0.08)] hover:border-[rgba(246,66,43,0.15)] hover:text-apex cursor-default"
+                  className="inline-flex items-center text-[12px] font-semibold px-3 py-1.5 rounded-md bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.14)] text-muted transition-all duration-[400ms] hover:bg-apex/[0.08] hover:border-apex/[0.15] hover:text-apex cursor-default"
                 >
                   {film}
                 </span>
